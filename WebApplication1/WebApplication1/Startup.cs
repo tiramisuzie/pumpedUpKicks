@@ -32,12 +32,15 @@ namespace WebApplication1
         {
             services.AddMvc();
 
-            services.AddIdentity<ApplicationUser,IdentityRole>()
-                .AddEntityFrameworkStores<>
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDBContext>()
+                .AddDefaultTokenProviders();
 
             services.AddDbContext<ShoesDbContext>(options =>
-
                 options.UseSqlServer(Configuration.GetConnectionString("ProductionConnection")));
+
+            services.AddDbContext<ApplicationDBContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"))); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +51,7 @@ namespace WebApplication1
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
