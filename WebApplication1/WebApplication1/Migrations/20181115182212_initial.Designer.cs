@@ -9,8 +9,8 @@ using PumpedUpKicks.Data;
 namespace PumpedUpKicks.Migrations
 {
     [DbContext(typeof(ShoesDbContext))]
-    [Migration("20181114162912_init")]
-    partial class init
+    [Migration("20181115182212_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

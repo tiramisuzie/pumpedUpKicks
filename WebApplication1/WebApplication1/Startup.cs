@@ -37,7 +37,7 @@ namespace WebApplication1
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<ShoesDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ProductionConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"))); 
