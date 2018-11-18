@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PumpedUpKicks.Migrations
+namespace PumpedUpKicks.Migrations.ApplicationDB
 {
-    public partial class init : Migration
+    public partial class resetinitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

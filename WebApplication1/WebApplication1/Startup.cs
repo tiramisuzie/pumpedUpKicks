@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PumpedUpKicks.Data;
+using PumpedUpKicks.Models;
 
 namespace WebApplication1
 {
@@ -30,9 +32,15 @@ namespace WebApplication1
         {
             services.AddMvc();
 
-            services.AddDbContext<ShoesDbContext>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDBContext>()
+                .AddDefaultTokenProviders();
 
-                options.UseSqlServer(Configuration.GetConnectionString("ProductionConnection")));
+            services.AddDbContext<ShoesDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LocalShoeConnection")));
+
+            services.AddDbContext<ApplicationDBContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("LocalIdentityConnection"))); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +51,7 @@ namespace WebApplication1
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
