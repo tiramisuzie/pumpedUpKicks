@@ -37,10 +37,10 @@ namespace WebApplication1
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<ShoesDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("LocalShoeConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"))); 
+               options.UseSqlServer(Configuration.GetConnectionString("LocalIdentityConnection"))); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
