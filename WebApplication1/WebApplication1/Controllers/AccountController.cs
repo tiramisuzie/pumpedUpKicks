@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PumpedUpKicks.Models;
 using PumpedUpKicks.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PumpedUpKicks.Controllers
 {
@@ -44,7 +45,7 @@ namespace PumpedUpKicks.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    
                 }
 
             }
