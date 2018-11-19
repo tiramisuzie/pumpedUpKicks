@@ -16,6 +16,11 @@ header h1 {
     color: white;
     font-family: 'Allerta Stencil', sans-serif;
     font-size: 60px;
+    text-shadow:
+        -2px -2px 0 #000,
+        2px 2px 0 #000,
+        -2px -2px 0 #000,
+        2px 2px 0 #000
 }
 
 .signinicons {
