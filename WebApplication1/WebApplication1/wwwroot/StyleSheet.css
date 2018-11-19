@@ -1,6 +1,7 @@
 ﻿body {
     margin: 0 auto;
     background-color: #F5F5F5;
+    font-family: 'Allerta Stencil', sans-serif;
 }
 
 header {
@@ -12,9 +13,8 @@ header {
     background-color: #40E0D0;
 }
 
-header h1 {
+header h2 {
     color: white;
-    font-family: 'Allerta Stencil', sans-serif;
     font-size: 60px;
     text-shadow:
         -2px -2px 0 #000,
@@ -49,4 +49,25 @@ header h1 {
     color: white;
 }
 
+.mainLogo {
+    text-decoration: none;
+    color: white;
+}
 
+.mainImage {
+    width: 500px;
+    height: 500px;
+}
+
+.homeDiv {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.mainHeader {
+    font-size: 40px;
+}
