@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/StyleSheet.css" />
+    <link href="https://fonts.googleapis.com/css?family=Allerta+Stencil" rel="stylesheet">
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header>
+        <h2>P.U.K</h2>
+        <div class="signinicons">
+            <a class="signupbtn" href="@Url.Action("Register", "Account")">Register</a>
+            <a class="signupbtn" href="@Url.Action("Login", "Account")">Login</a>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
