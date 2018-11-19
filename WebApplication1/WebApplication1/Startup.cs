@@ -32,15 +32,19 @@ namespace WebApplication1
         {
             services.AddMvc();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 3;
+                options.Password.RequireLowercase = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<ShoesDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalShoeConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("ProductionShoeConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("LocalIdentityConnection"))); 
+               options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"))); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
