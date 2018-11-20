@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+using PumpedUpKicks.Interfaces;
+
+// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PumpedUpKicks.Controllers
 {
     public class ShopController : Controller
     {
-        [Authorize]
-        public IActionResult Index()
+        private readonly IShop _shops;
+
+        public ShopController(IShop context)
         {
-            return View();
+            _shops = context;
+        }
+
+        // GET: Products
+        public async Task<IActionResult> Index()
+        {
+            return View(await _shops.GetProducts());
         }
     }
 }

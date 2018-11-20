@@ -8,7 +8,7 @@ using PumpedUpKicks.Data;
 
 namespace PumpedUpKicks.Migrations.ShoesDb
 {
-    [DbContext(typeof(ShoesDbContext))]
+    [DbContext(typeof(ShopDbContext))]
     [Migration("20181119181050_initial")]
     partial class initial
     {
