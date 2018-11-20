@@ -58,7 +58,7 @@ namespace WebApplication1
                 options.AddPolicy("EmployeeOnly", policy => policy.RequireUserName("EmployeeSecret"));
             });
             services.AddScoped<IAuthorizationHandler, VipEmailRequirement>();
-               options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection")));
+              // options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"));
 
             services.AddTransient<IShop, ShopService>(); 
         }
