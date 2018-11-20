@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PumpedUpKicks.Data;
 using PumpedUpKicks.Models;
+using PumpedUpKicks.Models.Handlers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1
 {
@@ -41,10 +43,16 @@ namespace WebApplication1
                 .AddDefaultTokenProviders();
 
             services.AddDbContext<ShoesDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ProductionShoeConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("LocalShoeConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"))); 
+               options.UseSqlServer(Configuration.GetConnectionString("LocalIdentityConnection")));
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRoles.Admin));
+                options.AddPolicy("EmailPolicy", policy => policy.Requirements.Add(new RequireEmailRequirement()));
+            });
+            services.AddScoped<IAuthorizationHandler, VipEmailRequirement>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,14 +67,6 @@ namespace WebApplication1
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            app.UseMvc(route =>
-            {
-                route.MapRoute( 
-                        name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}"
-                    );            
-            });
-
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");

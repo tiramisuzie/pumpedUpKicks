@@ -1,9 +1,31 @@
-﻿@{ 
+﻿@using Microsoft.AspNetCore.Identity
+@using PumpedUpKicks.Models;
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
     ViewData["Title"] = "Index";
     Layout = "_HomeLayout";
 }
 
+@if (SignInManager.IsSignedIn(User))
+{
 <div class="homeDiv">
-    <h1 class="mainHeader">Welcome To Pumped Up Kicks</h1>
-    <img class="mainImage" src="~/images/homepage.jpeg"/>
+    <h1 class="mainHeader">Welcome To Pumped Up Kicks <span class="userName">@User.Claims.First(name => name.Type == "FullName").Value</span></h1>
+    <form asp-action="Logout" asp-controller="Account" method="post">
+        <button class="signupbtn" type="submit">Logout</button>
+    </form>
+    <img class="mainImage" src="~/images/homepage.jpeg" />
 </div>
+}
+else
+{
+    <div class="homeDiv">
+        <h1 class="mainHeader">Welcome To Pumped Up Kicks</h1>
+        <div class="signinicons">
+            <a class="signupbtn" href="@Url.Action("Login", "Account")">Login</a>
+            <a class="signupbtn" href="@Url.Action("Register", "Account")">Register</a>
+        </div>
+        <img class="mainImage" src="~/images/homepage.jpeg" />
+    </div>
+}
