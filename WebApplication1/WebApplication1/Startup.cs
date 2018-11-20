@@ -10,7 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PumpedUpKicks.Data;
+using PumpedUpKicks.Interfaces;
 using PumpedUpKicks.Models;
+using PumpedUpKicks.Models.Services;
 
 namespace WebApplication1
 {
@@ -40,11 +42,13 @@ namespace WebApplication1
                 .AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddDbContext<ShoesDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ProductionShoeConnection")));
+            services.AddDbContext<ShopDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"))); 
+               options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection")));
+
+            services.AddTransient<IShop, ShopService>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

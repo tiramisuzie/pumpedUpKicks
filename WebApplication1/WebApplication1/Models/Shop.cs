@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PumpedUpKicks.Models
 {
-    public class Shoe
+    public class Shop
     {
         public int ID { get; set; }
         public string Name { get; set; }

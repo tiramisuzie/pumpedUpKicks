@@ -7,7 +7,7 @@ using PumpedUpKicks.Data;
 
 namespace PumpedUpKicks.Migrations.ShoesDb
 {
-    [DbContext(typeof(ShoesDbContext))]
+    [DbContext(typeof(ShopDbContext))]
     partial class ShoesDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
