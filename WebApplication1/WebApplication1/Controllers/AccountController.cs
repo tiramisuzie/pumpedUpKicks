@@ -8,19 +8,24 @@ using PumpedUpKicks.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using PumpedUpKicks.Data;
 
 namespace PumpedUpKicks.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private ApplicationDBContext _context;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDBContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -32,6 +37,7 @@ namespace PumpedUpKicks.Controllers
         {
             if (ModelState.IsValid)
             {
+                CheckUserRolesExist();
                 // start the registration process
                 ApplicationUser user = new ApplicationUser()
                 {
@@ -39,7 +45,7 @@ namespace PumpedUpKicks.Controllers
                     Email = rvm.Email,
                     FirstName = rvm.FirstName,
                     LastName = rvm.LastName,
-                    Birthday = rvm.Birthday
+                    Birthday = rvm.Birthday,
                 };
 
                 var result = await _userManager.CreateAsync(user, rvm.Password);
@@ -58,9 +64,18 @@ namespace PumpedUpKicks.Controllers
                     {
                         fullNameClaim,
                         birthdayClaim,
-                        emailClaim
+                        emailClaim,
                     };
 
+                    if (rvm.Email == "ercain3@gmail.com")
+                    {
+                        await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                    }
+
+                    await _userManager.AddToRoleAsync(user, UserRoles.Member);
+                    await _userManager.AddClaimAsync(user, fullNameClaim);
+                    await _userManager.AddClaimsAsync(user, myClaims);
+                    await _userManager.AddClaimAsync(user, birthdayClaim);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -75,6 +90,7 @@ namespace PumpedUpKicks.Controllers
             }
             return View(rvm);
         }
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -94,7 +110,7 @@ namespace PumpedUpKicks.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "You are wrong");
+                    ModelState.AddModelError(string.Empty, "Invalid credentials");
                 }
             }
             return View(lvm);
@@ -106,6 +122,24 @@ namespace PumpedUpKicks.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public void CheckUserRolesExist()
+        {
+            if (!_context.Roles.Any())
+            {
+                List<IdentityRole> Roles = new List<IdentityRole>
+                {
+                    new IdentityRole{Name = UserRoles.Admin, NormalizedName=UserRoles.Admin.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString()},
+                    new IdentityRole{Name = UserRoles.Member, NormalizedName=UserRoles.Member.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString()},
+                };
+
+                foreach (var role in Roles)
+                {
+                    _context.Roles.Add(role);
+                    _context.SaveChanges();
+                }
+            }
         }
     }
 }

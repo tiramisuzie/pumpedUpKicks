@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PumpedUpKicks.Data;
 using PumpedUpKicks.Interfaces;
 using PumpedUpKicks.Models;
+using PumpedUpKicks.Models.Handlers;
+using Microsoft.AspNetCore.Authorization;
 using PumpedUpKicks.Models.Services;
 
 namespace WebApplication1
@@ -42,15 +44,20 @@ namespace WebApplication1
                 .AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("EmployeeOnly", policy => policy.RequireUserName("EmployeeSecret"));
-            });
+            
 
             services.AddDbContext<ShopDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection")));
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRoles.Admin));
+                options.AddPolicy("EmailPolicy", policy => policy.Requirements.Add(new RequireEmailRequirement()));
+                options.AddPolicy("EmployeeOnly", policy => policy.RequireUserName("EmployeeSecret"));
+            });
+            services.AddScoped<IAuthorizationHandler, VipEmailRequirement>();
                options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection")));
 
             services.AddTransient<IShop, ShopService>(); 
@@ -68,14 +75,6 @@ namespace WebApplication1
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
-            app.UseMvc(route =>
-            {
-                route.MapRoute( 
-                        name: "default",
-                        template: "{controller=Home}/{action=Index}/{id?}"
-                    );            
-            });
-
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
