@@ -10,9 +10,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PumpedUpKicks.Data;
+using PumpedUpKicks.Interfaces;
 using PumpedUpKicks.Models;
 using PumpedUpKicks.Models.Handlers;
 using Microsoft.AspNetCore.Authorization;
+using PumpedUpKicks.Models.Services;
 
 namespace WebApplication1
 {
@@ -42,8 +44,10 @@ namespace WebApplication1
                 .AddEntityFrameworkStores<ApplicationDBContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddDbContext<ShoesDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ProductionShoeConnection")));
+            
+
+            services.AddDbContext<ShopDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection")));
@@ -51,8 +55,12 @@ namespace WebApplication1
             services.AddAuthorization(options => {
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRoles.Admin));
                 options.AddPolicy("EmailPolicy", policy => policy.Requirements.Add(new RequireEmailRequirement()));
+                options.AddPolicy("EmployeeOnly", policy => policy.RequireUserName("EmployeeSecret"));
             });
             services.AddScoped<IAuthorizationHandler, VipEmailRequirement>();
+              // options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"));
+
+            services.AddTransient<IShop, ShopService>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

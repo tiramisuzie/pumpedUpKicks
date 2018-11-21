@@ -2,17 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PumpedUpKicks.Data;
 
-namespace PumpedUpKicks.Migrations.ShoesDb
+namespace PumpedUpKicks.Migrations
 {
-    [DbContext(typeof(ShoesDbContext))]
-    [Migration("20181119181050_initial")]
-    partial class initial
+    [DbContext(typeof(ShopDbContext))]
+    partial class ShopDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,7 +18,7 @@ namespace PumpedUpKicks.Migrations.ShoesDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PumpedUpKicks.Models.Shoe", b =>
+            modelBuilder.Entity("PumpedUpKicks.Models.Shop", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -32,7 +30,7 @@ namespace PumpedUpKicks.Migrations.ShoesDb
 
                     b.HasKey("ID");
 
-                    b.ToTable("Shoes");
+                    b.ToTable("Shops");
 
                     b.HasData(
                         new { ID = 1, Description = "Classic fresh and multiple colorways", Name = "Nike Air Max 97" },

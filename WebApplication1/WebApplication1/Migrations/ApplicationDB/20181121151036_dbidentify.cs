@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PumpedUpKicks.Migrations
+namespace PumpedUpKicks.Migrations.ApplicationDB
 {
-    public partial class inital : Migration
+    public partial class dbidentify : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PumpedUpKicks.Data;
 
-namespace PumpedUpKicks.Migrations
+namespace PumpedUpKicks.Migrations.ApplicationDB
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20181119174233_inital")]
-    partial class inital
+    [Migration("20181121151036_dbidentify")]
+    partial class dbidentify
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

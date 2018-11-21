@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace PumpedUpKicks.Migrations.ShoesDb
+namespace PumpedUpKicks.Migrations
 {
-    public partial class initial : Migration
+    public partial class shoes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Shoes",
+                name: "Shops",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -18,11 +18,11 @@ namespace PumpedUpKicks.Migrations.ShoesDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shoes", x => x.ID);
+                    table.PrimaryKey("PK_Shops", x => x.ID);
                 });
 
             migrationBuilder.InsertData(
-                table: "Shoes",
+                table: "Shops",
                 columns: new[] { "ID", "Description", "Name" },
                 values: new object[,]
                 {
@@ -42,7 +42,7 @@ namespace PumpedUpKicks.Migrations.ShoesDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Shoes");
+                name: "Shops");
         }
     }
 }
