@@ -47,7 +47,7 @@ namespace WebApplication1
             
 
             services.AddDbContext<ShopDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalShoeConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("ProductionShoeConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection")));
