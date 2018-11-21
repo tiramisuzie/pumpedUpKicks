@@ -124,9 +124,13 @@ namespace PumpedUpKicks.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public void CheckUserRolesExist()
+        public async void CheckUserRolesExist()
         {
-            if (!_context.Roles.Any())
+            try
+            {
+                _context.Roles.Any();
+            }
+            catch (Exception e)
             {
                 List<IdentityRole> Roles = new List<IdentityRole>
                 {
@@ -137,7 +141,7 @@ namespace PumpedUpKicks.Controllers
                 foreach (var role in Roles)
                 {
                     _context.Roles.Add(role);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
             }
         }
