@@ -45,9 +45,9 @@ namespace PumpedUpKicks.Controllers
                     Email = rvm.Email,
                     FirstName = rvm.FirstName,
                     LastName = rvm.LastName,
-                    Birthday = rvm.Birthday,
+                    Birthday = rvm.Birthday
                 };
-
+                
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
                 if (result.Succeeded)
@@ -69,10 +69,10 @@ namespace PumpedUpKicks.Controllers
 
                     if (rvm.Email == "ercain3@gmail.com")
                     {
-                        await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+                        await _userManager.AddToRoleAsync(user, UserRoles.Admin.ToString());
                     }
 
-                    await _userManager.AddToRoleAsync(user, UserRoles.Member);
+                    await _userManager.AddToRoleAsync(user, UserRoles.Member.ToString());
                     await _userManager.AddClaimAsync(user, fullNameClaim);
                     await _userManager.AddClaimsAsync(user, myClaims);
                     await _userManager.AddClaimAsync(user, birthdayClaim);
@@ -126,23 +126,20 @@ namespace PumpedUpKicks.Controllers
 
         public async void CheckUserRolesExist()
         {
-            try
-            {
-                _context.Roles.Any();
-            }
-            catch (Exception e)
+            if(!_context.Roles.Any())
             {
                 List<IdentityRole> Roles = new List<IdentityRole>
                 {
-                    new IdentityRole{Name = UserRoles.Admin, NormalizedName=UserRoles.Admin.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString()},
-                    new IdentityRole{Name = UserRoles.Member, NormalizedName=UserRoles.Member.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString()},
+                    new IdentityRole(UserRoles.Admin) { NormalizedName = UserRoles.Admin.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString()},
+                    new IdentityRole(UserRoles.Member){ NormalizedName = UserRoles.Member.ToString(), ConcurrencyStamp = Guid.NewGuid().ToString()},
                 };
 
                 foreach (var role in Roles)
                 {
                     _context.Roles.Add(role);
-                    await _context.SaveChangesAsync();
                 }
+
+                await _context.SaveChangesAsync();
             }
         }
     }
