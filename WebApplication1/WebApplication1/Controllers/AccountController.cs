@@ -102,7 +102,7 @@ namespace PumpedUpKicks.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(lvm.Email, lvm.Password, false, false);
+                var result = await _signInManager.PasswordSignInAsync(lvm.UserName, lvm.Password, false, false);
 
                 if (result.Succeeded)
                 {
