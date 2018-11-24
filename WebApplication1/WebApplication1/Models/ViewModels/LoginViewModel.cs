@@ -9,12 +9,12 @@ namespace PumpedUpKicks.Models.ViewModels
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "User Name")]
-        public string UserName { get; set; }
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Enter Username or Email")]
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
         public string Password { get; set; }
     }
 }

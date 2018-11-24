@@ -17,13 +17,7 @@ namespace PumpedUpKicks.Models.ViewModels
         public string LastName { get; set; }
 
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
         public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "User Name")]
-        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
