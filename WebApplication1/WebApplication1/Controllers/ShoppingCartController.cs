@@ -22,6 +22,7 @@ namespace PumpedUpKicks.Controllers
             _userManager = userManager;
         }
         
+
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -29,10 +30,11 @@ namespace PumpedUpKicks.Controllers
             return View();
         }
 
+
         //public async Task<IActionResult> AddItemToCart(int id)
         //{
         //    var user = _userManager.GetUserId(User);
-
+        //    ViewB
         //}
     }
 }

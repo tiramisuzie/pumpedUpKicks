@@ -2,17 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PumpedUpKicks.Data;
 
-namespace PumpedUpKicks.Migrations
+namespace PumpedUpKicks.Migrations.ShopDb
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20181126030036_shoppingCart4")]
-    partial class shoppingCart4
+    partial class ShopDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,8 +52,6 @@ namespace PumpedUpKicks.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ShoppingCartItemId");
-
                     b.Property<string>("UserId");
 
                     b.HasKey("ShoppingCartId");
@@ -63,7 +59,7 @@ namespace PumpedUpKicks.Migrations
                     b.ToTable("ShoppingCarts");
 
                     b.HasData(
-                        new { ShoppingCartId = 1, ShoppingCartItemId = 1, UserId = "29f37bce - a6ec - 4291 - bee5 - 49d2ca421093" }
+                        new { ShoppingCartId = 1, UserId = "2077f23d-3421-4a3d-baa8-f4b67046d0df" }
                     );
                 });
 
@@ -75,31 +71,28 @@ namespace PumpedUpKicks.Migrations
 
                     b.Property<int>("ProductId");
 
+                    b.Property<string>("ProductName");
+
                     b.Property<int>("Quantity");
 
                     b.Property<int>("ShoppingCartId");
 
-                    b.HasKey("ShoppingCartItemId");
+                    b.Property<int>("userId");
 
-                    b.HasIndex("ProductId");
+                    b.HasKey("ShoppingCartItemId");
 
                     b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItem");
 
                     b.HasData(
-                        new { ShoppingCartItemId = 1, ProductId = 10, Quantity = 2, ShoppingCartId = 1 }
+                        new { ShoppingCartItemId = 1, ProductId = 1, ProductName = "Nike Air Max 97", Quantity = 2, ShoppingCartId = 1, userId = 0 }
                     );
                 });
 
             modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCartItem", b =>
                 {
-                    b.HasOne("PumpedUpKicks.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PumpedUpKicks.Models.ShoppingCart")
+                    b.HasOne("PumpedUpKicks.Models.ShoppingCart", "ShoppingCart")
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade);
