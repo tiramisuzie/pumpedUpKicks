@@ -8,9 +8,9 @@ namespace PumpedUpKicks.Controllers
 {
     public class ShopController : Controller
     {
-        private readonly IShop _shops;
+        private readonly IProduct _shops;
 
-        public ShopController(IShop context)
+        public ShopController(IProduct context)
         {
             _shops = context;
         }
