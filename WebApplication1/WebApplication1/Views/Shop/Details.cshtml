@@ -1,0 +1,21 @@
+﻿@model PumpedUpKicks.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(product => product.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(product => product.Description)
+        </dd>
+    </dl>
+    <a asp-action="AddItemToCart" asp-controller="ShoppingCartController" asp-route-id="@Model.ProductId">Add to cart</a>
+    <a asp-action="Index">Back to List</a>
+</div>

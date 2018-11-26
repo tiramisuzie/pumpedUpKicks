@@ -28,5 +28,11 @@ namespace PumpedUpKicks.Controllers
             ViewBag.Cart = await _shoppingCart.GetShoppingCart(user.Id);
             return View();
         }
+
+        //public async Task<IActionResult> AddItemToCart(int id)
+        //{
+        //    var user = _userManager.GetUserId(User);
+
+        //}
     }
 }

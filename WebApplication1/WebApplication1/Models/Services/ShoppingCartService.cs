@@ -22,7 +22,7 @@ namespace PumpedUpKicks.Models.Services
 
         public async Task<ShoppingCart> GetShoppingCart(string userId)
         {
-            return await _context.ShoppingCarts.Include(x => x.ShoppingCartItems).FirstOrDefaultAsync(x => x.UserId.Equals(userId));
+            return await _context.ShoppingCarts.Include(x => x.ShoppingCartItems).FirstOrDefaultAsync(x => x.UserId==userId);
         }
     }
 }

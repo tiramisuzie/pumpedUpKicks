@@ -35,6 +35,9 @@ Welcome to my shop!
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                </td>
             </tr>
         }
     </tbody>
