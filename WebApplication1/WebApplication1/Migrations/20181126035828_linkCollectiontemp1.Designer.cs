@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PumpedUpKicks.Data;
 
 namespace PumpedUpKicks.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    partial class ShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181126035828_linkCollectiontemp1")]
+    partial class linkCollectiontemp1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,25 +73,30 @@ namespace PumpedUpKicks.Migrations
 
                     b.Property<int>("ProductId");
 
-                    b.Property<string>("ProductName");
-
                     b.Property<int>("Quantity");
 
                     b.Property<int>("ShoppingCartId");
 
                     b.HasKey("ShoppingCartItemId");
 
+                    b.HasIndex("ProductId");
+
                     b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItem");
 
                     b.HasData(
-                        new { ShoppingCartItemId = 1, ProductId = 1, ProductName = "Nike Air Max 97", Quantity = 2, ShoppingCartId = 1 }
+                        new { ShoppingCartItemId = 1, ProductId = 1, Quantity = 2, ShoppingCartId = 1 }
                     );
                 });
 
             modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCartItem", b =>
                 {
+                    b.HasOne("PumpedUpKicks.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("PumpedUpKicks.Models.ShoppingCart", "ShoppingCart")
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ShoppingCartId")

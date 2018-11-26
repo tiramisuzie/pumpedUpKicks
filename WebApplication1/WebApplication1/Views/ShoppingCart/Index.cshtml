@@ -1,0 +1,31 @@
+﻿
+@{
+
+}
+
+<h3>Cart Page</h3>
+@if (ViewBag.cart.ShoppingCartItems.Count > 0)
+{
+    <table cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Quantity</th>
+        </tr>
+
+        @foreach (var item in ViewBag.cart.ShoppingCartItems)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
+    </table>
+}
+
+@if (ViewBag.cart.ShoppingCartItems.Count <= 0)
+{
+    <p>No Shopping Cart Item</p>
+}
+<br>

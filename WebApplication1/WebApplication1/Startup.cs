@@ -15,6 +15,7 @@ using PumpedUpKicks.Models;
 using PumpedUpKicks.Models.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using PumpedUpKicks.Models.Services;
+using PumpedUpKicks.Models.Interfaces;
 
 namespace WebApplication1
 {
@@ -60,7 +61,8 @@ namespace WebApplication1
             services.AddScoped<IAuthorizationHandler, VipEmailRequirement>();
               // options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"));
 
-            services.AddTransient<IShop, ShopService>(); 
+            services.AddTransient<IProduct, ProductService>();
+            services.AddTransient<IShoppingCart, ShoppingCartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
