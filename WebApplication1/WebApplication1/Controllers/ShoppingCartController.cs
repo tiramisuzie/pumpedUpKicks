@@ -22,11 +22,19 @@ namespace PumpedUpKicks.Controllers
             _userManager = userManager;
         }
         
+
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             ViewBag.Cart = await _shoppingCart.GetShoppingCart(user.Id);
             return View();
         }
+
+
+        //public async Task<IActionResult> AddItemToCart(int id)
+        //{
+        //    var user = _userManager.GetUserId(User);
+        //    ViewB
+        //}
     }
 }
