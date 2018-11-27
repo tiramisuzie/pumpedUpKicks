@@ -24,9 +24,10 @@ namespace PumpedUpKicks.Models.Services
             await _shopdbcontex.SaveChangesAsync();
         }
 
-        public Task DeleteCartItem(ShoppingCartItem item)
+        public async Task DeleteCartItem(ShoppingCartItem item)
         {
-            throw new NotImplementedException();
+            _shopdbcontex.ShoppingCartItem.Remove(item);
+            await _shopdbcontex.SaveChangesAsync();
         }
 
         public async Task<List<ShoppingCartItem>> GetItemsFromCart(int id, string userId)

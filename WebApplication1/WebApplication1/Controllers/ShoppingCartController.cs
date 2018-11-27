@@ -48,6 +48,7 @@ namespace PumpedUpKicks.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddItemToCart(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -63,6 +64,15 @@ namespace PumpedUpKicks.Controllers
             };
             await _shoppingCartItem.CreateCartItem(products);
             return RedirectToAction("Index", "ShoppingCart");       
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var cart = await _shoppingCart.GetShoppingCart(user.Id);
+            var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == id);
+            await _shoppingCartItem.DeleteCartItem(product);
+            return View("Delete", "ShoppingCart");
         }
     }
 }

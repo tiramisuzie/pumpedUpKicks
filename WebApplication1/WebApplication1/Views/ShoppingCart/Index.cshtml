@@ -1,7 +1,7 @@
 ﻿@using PumpedUpKicks.Models;
 @model dynamic
 @{
-    int count =0;
+    int count = 0;
 }
 
 <h3>Cart Page</h3>
@@ -20,14 +20,17 @@
                 <td>@item.ProductId</td>
                 <td>@Model.product[count].Name</td>
                 <td>@item.Quantity</td>
+                <td><a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a></td>
             </tr>
             count++;
         }
     </table>
+    <a href="../../shop/index">add item</a>
 }
 
 @if (Model.list.Count <= 0)
 {
     <p>No Shopping Cart Item</p>
+    <a href="../../shop/index">view shop</a>
 }
 <br>
