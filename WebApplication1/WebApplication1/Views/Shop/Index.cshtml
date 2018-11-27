@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PumpedUpKicks.Models.Shop>
+﻿@model IEnumerable<PumpedUpKicks.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,7 +12,7 @@ Welcome to my shop!
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ID)
+                @Html.DisplayNameFor(model => model.ProductId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -27,13 +27,16 @@ Welcome to my shop!
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ID)
+                    @Html.DisplayFor(modelItem => item.ProductId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
                 </td>
             </tr>
         }

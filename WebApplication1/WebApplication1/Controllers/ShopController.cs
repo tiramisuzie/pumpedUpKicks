@@ -8,17 +8,34 @@ namespace PumpedUpKicks.Controllers
 {
     public class ShopController : Controller
     {
-        private readonly IShop _shops;
+        private readonly IProduct _shops;
 
-        public ShopController(IShop context)
+        public ShopController(IProduct context)
         {
             _shops = context;
         }
 
-        // GET: Products
+        // GET: Shop
         public async Task<IActionResult> Index()
         {
             return View(await _shops.GetProducts());
+        }
+
+        // GET: Shop/3
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var product = await _shops.GetProduct(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
     }
 }

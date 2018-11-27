@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 
 namespace PumpedUpKicks.Models
 {
-    public class Shop
+    public class Product
     {
-        public int ID { get; set; }
+        public int ProductId { get; set; }
+
         public string Name { get; set; }
+
         public string Description { get; set; }
     }
 }
