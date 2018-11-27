@@ -7,8 +7,7 @@ namespace PumpedUpKicks.Models.Interfaces
 {
     public interface IShoppingCart
     {
-        Task<ShoppingCart> GetShoppingCart(string userId);
-
-        Task CreateShoppingCart(string userId);
+        Task<List<ShoppingCartItem>> GetShoppingCart(string userId);
+        
     }
 }
