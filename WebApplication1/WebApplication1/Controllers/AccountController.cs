@@ -80,7 +80,6 @@ namespace PumpedUpKicks.Controllers
                     await _userManager.AddClaimsAsync(user, myClaims);
                     await _userManager.AddClaimAsync(user, birthdayClaim);
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    await _shoppingCartContext.CreateShoppingCart(user.Id);
                     return RedirectToAction("Index", "Home");
                 }
                 else

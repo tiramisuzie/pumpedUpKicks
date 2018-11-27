@@ -4,7 +4,7 @@
 }
 
 <h3>Cart Page</h3>
-@if (ViewBag.cart.ShoppingCartItems.Count > 0)
+@if (ViewBag.cart.Count > 0)
 {
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
@@ -13,18 +13,19 @@
             <th>Quantity</th>
         </tr>
 
-        @foreach (var item in ViewBag.cart.ShoppingCartItems)
+        @foreach (var item in ViewBag.cart)
         {
             <tr>
                 <td>@item.ProductId</td>
                 <td>@item.ProductName</td>
                 <td>@item.Quantity</td>
+                <td><a asp-controller="Shop" asp-action="Details" asp-route-id="@item.ProductId">Details</a></td>
             </tr>
         }
     </table>
 }
 
-@if (ViewBag.cart.ShoppingCartItems.Count <= 0)
+@if (ViewBag.cart.Count <= 0)
 {
     <p>No Shopping Cart Item</p>
 }
