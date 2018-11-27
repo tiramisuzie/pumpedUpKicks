@@ -1,10 +1,11 @@
-﻿
+﻿@using PumpedUpKicks.Models;
+@model dynamic
 @{
-
+    int count =0;
 }
 
 <h3>Cart Page</h3>
-@if (ViewBag.cart.ShoppingCartItems.Count > 0)
+@if (Model.list.Count > 0)
 {
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
@@ -13,18 +14,19 @@
             <th>Quantity</th>
         </tr>
 
-        @foreach (var item in ViewBag.cart.ShoppingCartItems)
+        @foreach (var item in Model.list)
         {
             <tr>
                 <td>@item.ProductId</td>
-                <td>@item.ProductName</td>
+                <td>@Model.product[count].Name</td>
                 <td>@item.Quantity</td>
             </tr>
+            count++;
         }
     </table>
 }
 
-@if (ViewBag.cart.ShoppingCartItems.Count <= 0)
+@if (Model.list.Count <= 0)
 {
     <p>No Shopping Cart Item</p>
 }

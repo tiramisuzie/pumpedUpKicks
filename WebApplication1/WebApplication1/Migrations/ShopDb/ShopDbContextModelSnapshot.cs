@@ -57,10 +57,6 @@ namespace PumpedUpKicks.Migrations.ShopDb
                     b.HasKey("ShoppingCartId");
 
                     b.ToTable("ShoppingCarts");
-
-                    b.HasData(
-                        new { ShoppingCartId = 1, UserId = "2077f23d-3421-4a3d-baa8-f4b67046d0df" }
-                    );
                 });
 
             modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCartItem", b =>
@@ -71,27 +67,28 @@ namespace PumpedUpKicks.Migrations.ShopDb
 
                     b.Property<int>("ProductId");
 
-                    b.Property<string>("ProductName");
-
                     b.Property<int>("Quantity");
 
                     b.Property<int>("ShoppingCartId");
 
-                    b.Property<int>("userId");
+                    b.Property<string>("userId");
 
                     b.HasKey("ShoppingCartItemId");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItem");
-
-                    b.HasData(
-                        new { ShoppingCartItemId = 1, ProductId = 1, ProductName = "Nike Air Max 97", Quantity = 2, ShoppingCartId = 1, userId = 0 }
-                    );
                 });
 
             modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCartItem", b =>
                 {
+                    b.HasOne("PumpedUpKicks.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("PumpedUpKicks.Models.ShoppingCart", "ShoppingCart")
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ShoppingCartId")

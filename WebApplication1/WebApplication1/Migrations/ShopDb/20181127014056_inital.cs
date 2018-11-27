@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PumpedUpKicks.Migrations.ShopDb
 {
-    public partial class initialshop : Migration
+    public partial class inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,15 +40,20 @@ namespace PumpedUpKicks.Migrations.ShopDb
                 {
                     ShoppingCartItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    userId = table.Column<int>(nullable: false),
+                    userId = table.Column<string>(nullable: true),
                     ShoppingCartId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false),
-                    ProductName = table.Column<string>(nullable: true)
+                    ProductId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ShoppingCartItem", x => x.ShoppingCartItemId);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItem_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ShoppingCartItem_ShoppingCarts_ShoppingCartId",
                         column: x => x.ShoppingCartId,
@@ -74,15 +79,10 @@ namespace PumpedUpKicks.Migrations.ShopDb
                     { 10, "Classic fresh and multiple colorways", "Jordan 4's" }
                 });
 
-            migrationBuilder.InsertData(
-                table: "ShoppingCarts",
-                columns: new[] { "ShoppingCartId", "UserId" },
-                values: new object[] { 1, "2077f23d-3421-4a3d-baa8-f4b67046d0df" });
-
-            migrationBuilder.InsertData(
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartItem_ProductId",
                 table: "ShoppingCartItem",
-                columns: new[] { "ShoppingCartItemId", "ProductId", "ProductName", "Quantity", "ShoppingCartId", "userId" },
-                values: new object[] { 1, 1, "Nike Air Max 97", 2, 1, 0 });
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCartItem_ShoppingCartId",
@@ -93,10 +93,10 @@ namespace PumpedUpKicks.Migrations.ShopDb
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ShoppingCartItem");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCartItem");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "ShoppingCarts");

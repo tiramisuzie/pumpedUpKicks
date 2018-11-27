@@ -11,13 +11,13 @@ namespace PumpedUpKicks.Models
     {
         [Key]
         public int ShoppingCartItemId { get; set; }
-        public int userId { get; set; }
+        public string userId { get; set; }
         public int ShoppingCartId { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
 
         public int Quantity { get; set; }
 
         public int ProductId { get; set; }
-        public string ProductName { get; set; }
+        public Product Product { get; set; }
     }
 }

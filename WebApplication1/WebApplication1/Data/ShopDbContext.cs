@@ -77,12 +77,12 @@ namespace PumpedUpKicks.Data
 
             );
 
-            modelBuilder.Entity<ShoppingCart>().HasData(new ShoppingCart
-            {
-                ShoppingCartId = 1,
-                UserId = "2077f23d-3421-4a3d-baa8-f4b67046d0df"
-            }
-            );
+            //modelBuilder.Entity<ShoppingCart>().HasData(new ShoppingCart
+            //{
+            //    ShoppingCartId = 1,
+            //    UserId = "2077f23d-3421-4a3d-baa8-f4b67046d0df"
+            //}
+            //);
 
             modelBuilder.Entity<ShoppingCartItem>(entity =>
             {
@@ -92,14 +92,13 @@ namespace PumpedUpKicks.Data
             });
             
 
-            modelBuilder.Entity<ShoppingCartItem>().HasData(new ShoppingCartItem
-            {
-                ShoppingCartItemId = 1,
-                ShoppingCartId = 1,
-                ProductId = 1,
-                ProductName = "Nike Air Max 97",
-                Quantity = 2
-            });
+            //modelBuilder.Entity<ShoppingCartItem>().HasData(new ShoppingCartItem
+            //{
+            //    ShoppingCartItemId = 1,
+            //    ShoppingCartId = 1,
+            //    ProductId = 1,
+            //    Quantity = 2
+            //});
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts {get; set; }
