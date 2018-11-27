@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace PumpedUpKicks.Interfaces
 {
-    public interface IShop
+    public interface IProduct
     {
-        Task<List<Shop>> GetProducts();
+        Task<List<Product>> GetProducts();
         
-        Task<Shop> GetShop(int id);
+        Task<Product> GetProduct(int id);
     }
 }

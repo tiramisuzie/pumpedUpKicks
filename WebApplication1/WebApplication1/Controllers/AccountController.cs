@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using PumpedUpKicks.Data;
+using PumpedUpKicks.Models.Interfaces;
 
 namespace PumpedUpKicks.Controllers
 {
@@ -18,12 +19,14 @@ namespace PumpedUpKicks.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private ApplicationDBContext _context;
+        private readonly IShoppingCart _shoppingCartContext;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDBContext context)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDBContext context, IShoppingCart shoppingCartContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+            _shoppingCartContext = shoppingCartContext;
         }
 
         [HttpGet]
@@ -77,6 +80,7 @@ namespace PumpedUpKicks.Controllers
                     await _userManager.AddClaimsAsync(user, myClaims);
                     await _userManager.AddClaimAsync(user, birthdayClaim);
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _shoppingCartContext.CreateShoppingCart(user.Id);
                     return RedirectToAction("Index", "Home");
                 }
                 else

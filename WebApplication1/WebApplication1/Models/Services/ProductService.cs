@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace PumpedUpKicks.Models.Services
 {
-    public class ShopService : IShop
+    public class ProductService : IProduct
     {
 
         private ShopDbContext _context;
 
-        public ShopService(ShopDbContext context)
+        public ProductService(ShopDbContext context)
         {
             _context = context;
         }
 
         //Get list of all products
-        public async Task<List<Shop>> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
-            return await _context.Shops.ToListAsync();
+            return await _context.Products.ToListAsync();
         }
         
-        public async Task<Shop> GetShop(int id)
+        public async Task<Product> GetProduct(int id)
         {
-            return await _context.Shops.FirstOrDefaultAsync(x => x.ID == id);
+            return await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
         }
     }
 }
