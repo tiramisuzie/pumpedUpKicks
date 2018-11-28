@@ -102,6 +102,7 @@ namespace PumpedUpKicks.Controllers
             return View("Delete", "ShoppingCart");
         }
 
+
         public async Task<IActionResult> Edit(int id)
         {
             if (id == 0)
@@ -112,6 +113,24 @@ namespace PumpedUpKicks.Controllers
             var cart = await _shoppingCart.GetShoppingCart(user.Id);
             var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == id);
             return View(product);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int ProductId, int Quantity)
+        {
+            if (ProductId == 0)
+            {
+                return NotFound();
+            }
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var cart = await _shoppingCart.GetShoppingCart(user.Id);
+            var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == ProductId && x.userId == user.Id);
+
+            product.Quantity = Quantity;
+            await _shoppingCartItem.UpdateCartItem(product);
+
+            return RedirectToAction("Index");
         }
 
     }
