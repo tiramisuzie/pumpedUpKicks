@@ -1,39 +1,41 @@
-﻿@using PumpedUpKicks.Models;
-@model dynamic
-@{
-    int count = 0;
+﻿@model List<PumpedUpKicks.Models.ViewModels.CartItemViewModel>
+
+@{ 
+    ViewData["Title"] = "Index";
 }
 
-<h3>Cart Page</h3>
-@if (Model.list.Count > 0)
+@if(Model.Count() > 0)
 {
+    <h3>Cart Page</h3>
     <table cellpadding="2" cellspacing="2" border="1">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-        </tr>
-
-        @foreach (var item in Model.list)
-        {
-        <tr>
-            <td>@item.ProductId</td>
-            <td>@Model.product[count].Name</td>
-            <td>@item.Quantity</td>
-            <td>@item.Price</td>
-            <td><a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a></td>
-            <td><a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a></td>
-        </tr>
-            count++;
-        }
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price</td>
+                <td><a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a></td>
+                <td><a asp-action="Details" asp-route-id="@item.ProductId">Details</a></td>
+                <td><a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a></td>
+            </tr>
+            }
+        </tbody>
     </table>
     <a href="../../shop/index">add item</a>
 }
-
-@if (Model.list.Count <= 0)
+else
 {
     <p>No Shopping Cart Item</p>
     <a href="../../shop/index">view shop</a>
+    <br>
 }
-<br>

@@ -10,7 +10,7 @@ using PumpedUpKicks.Data;
 namespace PumpedUpKicks.Migrations.ApplicationDB
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20181128010000_initial")]
+    [Migration("20181128092009_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

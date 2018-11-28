@@ -1,1 +1,16 @@
-﻿Edit
+﻿@model PumpedUpKicks.Models.ShoppingCartItem
+
+@{ 
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit Product</h2>
+<div>
+    <form asp-action="edit">
+        <input type="hidden" asp-for="ProductId" />
+        <label asp-for="Quantity" class="control-label"></label>
+        <input asp-for="Quantity" class="form-control" />
+        <input type="submit" value="Save" class="btn btn-default" />
+    </form>
+</div>
+<a asp-action="Index">Back to Cart</a>

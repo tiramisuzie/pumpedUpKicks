@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PumpedUpKicks.Data;
 using PumpedUpKicks.Interfaces;
 using PumpedUpKicks.Models;
 using PumpedUpKicks.Models.Interfaces;
+using PumpedUpKicks.Models.ViewModels;
 
 namespace PumpedUpKicks.Controllers
 {
@@ -18,33 +20,40 @@ namespace PumpedUpKicks.Controllers
         private readonly IShoppingCart _shoppingCart;
         private readonly IProduct _product;
         private readonly IShoppingCartItem _shoppingCartItem;
+        private readonly ShopDbContext _shopcontext;
+
 
         private UserManager<ApplicationUser> _userManager;
 
-        public ShoppingCartController(UserManager<ApplicationUser> userManager, IShoppingCart context, IProduct product, IShoppingCartItem shoppingCartItem)
+        public ShoppingCartController(UserManager<ApplicationUser> userManager, IShoppingCart context, IProduct product, IShoppingCartItem shoppingCartItem, ShopDbContext shopcontext)
         {
             _shoppingCart = context;
             _userManager = userManager;
             _product = product;
             _shoppingCartItem = shoppingCartItem;
+            _shopcontext = shopcontext;
         }
         
 
         public async Task<IActionResult> Index()
         {
-            dynamic system = new ExpandoObject();
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var cart = await _shoppingCart.GetShoppingCart(user.Id);
+            
             var listofitems = await _shoppingCartItem.GetItemsFromCart(cart.ShoppingCartId, user.Id);
-            List<Product> productList = new List<Product>();
-            foreach(var item in listofitems)
+            List<CartItemViewModel> cvmList = new List<CartItemViewModel>(); 
+            
+            foreach(var i in listofitems)
             {
-                var product = await _product.GetProduct(item.ProductId);
-                productList.Add(product);
+                var cvm = new CartItemViewModel();
+                cvm.Price = i.Price;
+                cvm.ProductId = i.ProductId;
+                cvm.ShoppingCartId = i.ShoppingCartId;
+                cvm.Quantity = i.Quantity;
+                cvm.Name = _shopcontext.Products.Where(x => x.ProductId == cvm.ProductId).Select(p => p.Name).FirstOrDefault().ToString();
+                cvmList.Add(cvm);
             }
-            system.list = listofitems;
-            system.product = productList;
-            return View(system);
+            return View(cvmList);
         }
 
 
@@ -57,15 +66,25 @@ namespace PumpedUpKicks.Controllers
             var prod = await _product.GetProduct(id);
 
             var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == id);
-            ShoppingCartItem products = new ShoppingCartItem()
+
+            if (product == null)
             {
-                ShoppingCartId = cart.ShoppingCartId,
-                userId = user.Id,
-                Quantity = product!=null? product.Quantity+1:1,
-                ProductId = id,
-                Price = prod.Price
-            };
-            await _shoppingCartItem.CreateCartItem(products);
+                ShoppingCartItem products = new ShoppingCartItem()
+                {
+                    ShoppingCartId = cart.ShoppingCartId,
+                    userId = user.Id,
+                    Quantity = 1,
+                    ProductId = id,
+                    Price = prod.Price
+                };
+                    await _shoppingCartItem.CreateCartItem(products);
+            }
+            else
+            {
+                product.Quantity += 1;
+                await _shoppingCartItem.UpdateCartItem(product);
+            }
+
             return RedirectToAction("Index", "ShoppingCart");       
         }
 
@@ -83,9 +102,17 @@ namespace PumpedUpKicks.Controllers
             return View("Delete", "ShoppingCart");
         }
 
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var cart = await _shoppingCart.GetShoppingCart(user.Id);
+            var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == id);
+            return View(product);
         }
+
     }
 }
