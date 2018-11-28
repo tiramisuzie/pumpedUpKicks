@@ -20,13 +20,16 @@ namespace PumpedUpKicks.Controllers
         private SignInManager<ApplicationUser> _signInManager;
         private ApplicationDBContext _context;
         private readonly IShoppingCart _shoppingCartContext;
+        private readonly ISendGrid _sendGrid;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDBContext context, IShoppingCart shoppingCartContext)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDBContext context, IShoppingCart shoppingCartContext, ISendGrid sendGrid)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
             _shoppingCartContext = shoppingCartContext;
+            _sendGrid = sendGrid;
+
         }
 
         [HttpGet]
@@ -50,7 +53,8 @@ namespace PumpedUpKicks.Controllers
                     LastName = rvm.LastName,
                     Birthday = rvm.Birthday
                 };
-                
+                _sendGrid.SendRegisterEmail(user.Email, string.Join(" ", user.FirstName, user.LastName));
+
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
                 if (result.Succeeded)

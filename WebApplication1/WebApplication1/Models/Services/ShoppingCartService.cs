@@ -20,5 +20,6 @@ namespace PumpedUpKicks.Models.Services
         {
             return await _context.ShoppingCartItem.Where( x => x.UserId.Equals(userId)).ToListAsync();
         }
+
     }
 }
