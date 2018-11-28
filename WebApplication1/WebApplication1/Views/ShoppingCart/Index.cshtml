@@ -12,16 +12,19 @@
             <th>Id</th>
             <th>Name</th>
             <th>Quantity</th>
+            <th>Price</th>
         </tr>
 
         @foreach (var item in Model.list)
         {
-            <tr>
-                <td>@item.ProductId</td>
-                <td>@Model.product[count].Name</td>
-                <td>@item.Quantity</td>
-                <td><a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a></td>
-            </tr>
+        <tr>
+            <td>@item.ProductId</td>
+            <td>@Model.product[count].Name</td>
+            <td>@item.Quantity</td>
+            <td>@item.Price</td>
+            <td><a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a></td>
+            <td><a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a></td>
+        </tr>
             count++;
         }
     </table>

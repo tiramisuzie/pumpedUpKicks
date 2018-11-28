@@ -36,9 +36,10 @@ namespace PumpedUpKicks.Models.Services
             return cartItems;
         }
 
-        public Task UpdateCartItem(ShoppingCartItem item)
+        public async Task UpdateCartItem(ShoppingCartItem item)
         {
-            throw new NotImplementedException();
+            _shopdbcontex.ShoppingCartItem.Update(item);
+            await _shopdbcontex.SaveChangesAsync();
         }
     }
 }

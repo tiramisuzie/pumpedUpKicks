@@ -7,7 +7,6 @@
 <h1>Index</h1>
 
 Welcome to my shop!
-
 <table>
     <thead>
         <tr>
@@ -19,6 +18,9 @@ Welcome to my shop!
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
             </th>
         </tr>
     </thead>
@@ -34,6 +36,9 @@ Welcome to my shop!
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
