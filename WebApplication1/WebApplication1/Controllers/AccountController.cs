@@ -53,8 +53,7 @@ namespace PumpedUpKicks.Controllers
                     LastName = rvm.LastName,
                     Birthday = rvm.Birthday
                 };
-                _sendGrid.SendRegisterEmail(user.Email, string.Join(" ", user.FirstName, user.LastName));
-
+                
                 var result = await _userManager.CreateAsync(user, rvm.Password);
 
                 if (result.Succeeded)
@@ -84,6 +83,7 @@ namespace PumpedUpKicks.Controllers
                     await _userManager.AddClaimsAsync(user, myClaims);
                     await _userManager.AddClaimAsync(user, birthdayClaim);
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    _sendGrid.SendRegisterEmail(user.Email, string.Join(" ", user.FirstName, user.LastName));
                     return RedirectToAction("Index", "Home");
                 }
                 else
