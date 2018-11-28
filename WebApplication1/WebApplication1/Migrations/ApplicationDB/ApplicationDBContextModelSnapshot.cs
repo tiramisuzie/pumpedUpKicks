@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PumpedUpKicks.Data;
 
-namespace PumpedUpKicks.Migrations
+namespace PumpedUpKicks.Migrations.ApplicationDB
 {
     [DbContext(typeof(ApplicationDBContext))]
     partial class ApplicationDBContextModelSnapshot : ModelSnapshot

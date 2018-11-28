@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PumpedUpKicks.Data;
 
-namespace PumpedUpKicks.Migrations.ShopDb
+namespace PumpedUpKicks.Migrations
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20181126233518_initial-shop")]
-    partial class initialshop
+    [Migration("20181128005902_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,23 +28,27 @@ namespace PumpedUpKicks.Migrations.ShopDb
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("Image");
+
                     b.Property<string>("Name");
+
+                    b.Property<int>("Price");
 
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
 
                     b.HasData(
-                        new { ProductId = 1, Description = "Classic fresh and multiple colorways", Name = "Nike Air Max 97" },
-                        new { ProductId = 2, Description = "Classic fresh and multiple colorways", Name = "Nike Air Max 95" },
-                        new { ProductId = 3, Description = "Classic fresh and multiple colorways", Name = "Nike Air Max" },
-                        new { ProductId = 4, Description = "Classic fresh and multiple colorways", Name = "Nike Kyrie 3" },
-                        new { ProductId = 5, Description = "Classic fresh and multiple colorways", Name = "Nike Air Force 1" },
-                        new { ProductId = 6, Description = "Classic fresh and multiple colorways", Name = "Nike Zoom Vaporfly" },
-                        new { ProductId = 7, Description = "Classic fresh and multiple colorways", Name = "Nike LeBron 15" },
-                        new { ProductId = 8, Description = "Classic fresh and multiple colorways", Name = "Jordan 1's" },
-                        new { ProductId = 9, Description = "Classic fresh and multiple colorways", Name = "Jordan 3's" },
-                        new { ProductId = 10, Description = "Classic fresh and multiple colorways", Name = "Jordan 4's" }
+                        new { ProductId = 1, Description = "Classic fresh and multiple colorways", Name = "Nike Air Max 97", Price = 100 },
+                        new { ProductId = 2, Description = "Classic fresh and multiple colorways", Name = "Nike Air Max 95", Price = 200 },
+                        new { ProductId = 3, Description = "Classic fresh and multiple colorways", Name = "Nike Air Max", Price = 150 },
+                        new { ProductId = 4, Description = "Classic fresh and multiple colorways", Name = "Nike Kyrie 3", Price = 150 },
+                        new { ProductId = 5, Description = "Classic fresh and multiple colorways", Name = "Nike Air Force 1", Price = 175 },
+                        new { ProductId = 6, Description = "Classic fresh and multiple colorways", Name = "Nike Zoom Vaporfly", Price = 205 },
+                        new { ProductId = 7, Description = "Classic fresh and multiple colorways", Name = "Nike LeBron 15", Price = 215 },
+                        new { ProductId = 8, Description = "Classic fresh and multiple colorways", Image = "~/images/airmax97.jpg", Name = "Jordan 1's", Price = 150 },
+                        new { ProductId = 9, Description = "Classic fresh and multiple colorways", Name = "Jordan 3's", Price = 300 },
+                        new { ProductId = 10, Description = "Classic fresh and multiple colorways", Name = "Jordan 4's", Price = 350 }
                     );
                 });
 
@@ -59,10 +63,6 @@ namespace PumpedUpKicks.Migrations.ShopDb
                     b.HasKey("ShoppingCartId");
 
                     b.ToTable("ShoppingCarts");
-
-                    b.HasData(
-                        new { ShoppingCartId = 1, UserId = "2077f23d-3421-4a3d-baa8-f4b67046d0df" }
-                    );
                 });
 
             modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCartItem", b =>
@@ -71,29 +71,32 @@ namespace PumpedUpKicks.Migrations.ShopDb
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductId");
+                    b.Property<int>("Price");
 
-                    b.Property<string>("ProductName");
+                    b.Property<int>("ProductId");
 
                     b.Property<int>("Quantity");
 
                     b.Property<int>("ShoppingCartId");
 
-                    b.Property<int>("userId");
+                    b.Property<string>("userId");
 
                     b.HasKey("ShoppingCartItemId");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItem");
-
-                    b.HasData(
-                        new { ShoppingCartItemId = 1, ProductId = 1, ProductName = "Nike Air Max 97", Quantity = 2, ShoppingCartId = 1, userId = 0 }
-                    );
                 });
 
             modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCartItem", b =>
                 {
+                    b.HasOne("PumpedUpKicks.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("PumpedUpKicks.Models.ShoppingCart", "ShoppingCart")
                         .WithMany("ShoppingCartItems")
                         .HasForeignKey("ShoppingCartId")

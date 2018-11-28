@@ -1,32 +1,39 @@
-﻿
+﻿@using PumpedUpKicks.Models;
+@model dynamic
 @{
-
+    int count = 0;
 }
 
 <h3>Cart Page</h3>
-@if (ViewBag.cart.Count > 0)
+@if (Model.list.Count > 0)
 {
     <table cellpadding="2" cellspacing="2" border="1">
         <tr>
             <th>Id</th>
             <th>Name</th>
             <th>Quantity</th>
+            <th>Price</th>
         </tr>
 
-        @foreach (var item in ViewBag.cart)
+        @foreach (var item in Model.list)
         {
-            <tr>
-                <td>@item.ProductId</td>
-                <td>@item.ProductName</td>
-                <td>@item.Quantity</td>
-                <td><a asp-controller="Shop" asp-action="Details" asp-route-id="@item.ProductId">Details</a></td>
-            </tr>
+        <tr>
+            <td>@item.ProductId</td>
+            <td>@Model.product[count].Name</td>
+            <td>@item.Quantity</td>
+            <td><a asp-controller="Shop" asp-action="Details" asp-route-id="@item.ProductId">Details</a></td>
+            <td>@item.Price</td>
+            <td><a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a></td>
+            <td><a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a></td>
+        </tr>
+            count++;
         }
     </table>
+    <a href="../../shop/index">add item</a>
 }
-
-@if (ViewBag.cart.Count <= 0)
+@if (Model.list.Count <= 0)
 {
     <p>No Shopping Cart Item</p>
+    <a href="../../shop/index">view shop</a>
 }
 <br>

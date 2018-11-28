@@ -16,10 +16,9 @@ namespace PumpedUpKicks.Models.Services
             _context = context;
         }
         
-        public async Task<List<ShoppingCartItem>> GetShoppingCart(string userId)
+        public async Task<ShoppingCart> GetShoppingCart(string userId)
         {
-            return await _context.ShoppingCartItem.Where( x => x.UserId.Equals(userId)).ToListAsync();
+            return await _context.ShoppingCarts.Include(x => x.ShoppingCartItems).FirstOrDefaultAsync(x => x.UserId==userId);
         }
-
     }
 }

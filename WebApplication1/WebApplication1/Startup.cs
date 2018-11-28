@@ -48,10 +48,10 @@ namespace WebApplication1
             
 
             services.AddDbContext<ShopDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ProductionShoeConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("LocalShoeConnection")));
 
             services.AddDbContext<ApplicationDBContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection")));
+               options.UseSqlServer(Configuration.GetConnectionString("LocalIdentityConnection")));
 
             services.AddAuthorization(options => {
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRoles.Admin));
@@ -65,6 +65,7 @@ namespace WebApplication1
             services.AddTransient<IProduct, ProductService>();
             services.AddTransient<IShoppingCart, ShoppingCartService>();
             services.AddTransient<ISendGrid, SendGridService>();
+            services.AddTransient<IShoppingCartItem, CartItemsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

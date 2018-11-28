@@ -16,6 +16,9 @@
             @Html.DisplayFor(product => product.Description)
         </dd>
     </dl>
-    <a asp-action="AddItemToCart" asp-controller="ShoppingCartController" asp-route-id="@Model.ProductId">Add to cart</a>
+    <form asp-action="AddItemToCart" asp-controller="ShoppingCart" method="post">
+        <input type="hidden" name="id" value="@Model.ProductId" />
+        <input type="submit" class="btn btn-default" /> |
+    </form>
     <a asp-action="Index">Back to List</a>
 </div>
