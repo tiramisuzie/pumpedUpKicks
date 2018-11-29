@@ -33,17 +33,17 @@ namespace PumpedUpKicks.Controllers
             _shoppingCartItem = shoppingCartItem;
             _shopcontext = shopcontext;
         }
-        
+
 
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var cart = await _shoppingCart.GetShoppingCart(user.Id);
-            
+
             var listofitems = await _shoppingCartItem.GetItemsFromCart(cart.ShoppingCartId, user.Id);
-            List<CartItemViewModel> cvmList = new List<CartItemViewModel>(); 
-            
-            foreach(var i in listofitems)
+            List<CartItemViewModel> cvmList = new List<CartItemViewModel>();
+
+            foreach (var i in listofitems)
             {
                 var cvm = new CartItemViewModel();
                 cvm.Price = i.Price;
@@ -78,7 +78,7 @@ namespace PumpedUpKicks.Controllers
                     ProductId = id,
                     Price = prod.Price
                 };
-                    await _shoppingCartItem.CreateCartItem(products);
+                await _shoppingCartItem.CreateCartItem(products);
             }
             else
             {
@@ -86,7 +86,7 @@ namespace PumpedUpKicks.Controllers
                 await _shoppingCartItem.UpdateCartItem(product);
             }
 
-            return RedirectToAction("Index", "ShoppingCart");       
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
 
