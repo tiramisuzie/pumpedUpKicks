@@ -75,3 +75,8 @@ header h2 {
 .userName {
     color: #40E0D0;
 }
+
+#shopImage {
+    width: 200px;
+    height: 150px;
+}

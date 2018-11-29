@@ -4,14 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-Welcome to my shop!
 <table>
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductId)
+                @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -22,6 +19,9 @@ Welcome to my shop!
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
+            <th>
+                Action
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@ Welcome to my shop!
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
+                    <img id="shopImage" src="@Html.DisplayFor(modelItem => item.Image)" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)

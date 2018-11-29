@@ -6,6 +6,7 @@
 
 <h2>Edit Product</h2>
 <div>
+    <p>Current Quantity: @Model.Quantity</p>
     <form asp-action="edit">
         <input type="hidden" asp-for="ProductId" />
         <label asp-for="Quantity" class="control-label"></label>

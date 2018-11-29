@@ -51,6 +51,7 @@ namespace PumpedUpKicks.Controllers
                 cvm.ShoppingCartId = i.ShoppingCartId;
                 cvm.Quantity = i.Quantity;
                 cvm.Name = _shopcontext.Products.Where(x => x.ProductId == cvm.ProductId).Select(p => p.Name).FirstOrDefault().ToString();
+                cvm.ImageUrl = _shopcontext.Products.Where(x => x.ProductId == cvm.ProductId).Select(p => p.Image).FirstOrDefault().ToString();
                 cvmList.Add(cvm);
             }
             return View(cvmList);

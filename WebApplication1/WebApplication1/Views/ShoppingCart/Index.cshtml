@@ -10,7 +10,7 @@
     <table cellpadding="2" cellspacing="2" border="1">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
@@ -20,12 +20,11 @@
             @foreach (var item in Model)
             {
             <tr>
-                <td>@item.ProductId</td>
+                <td><img src="@item.ImageUrl" /></td>
                 <td>@item.Name</td>
                 <td>@item.Quantity</td>
                 <td>@item.Price</td>
                 <td><a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a></td>
-                <td><a asp-action="Details" asp-route-id="@item.ProductId">Details</a></td>
                 <td><a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a></td>
             </tr>
             }
