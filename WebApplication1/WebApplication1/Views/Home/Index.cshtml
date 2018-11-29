@@ -10,17 +10,23 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-<div class="homeDiv">
-    <form asp-action="Logout" asp-controller="Account" method="post">
-        <button class="signupbtn" type="submit">Logout</button>
-    </form>
-    <img class="mainImage" src="~/images/homepage.jpeg" />
-</div>
+    <div id="lower-header">
+        <p class="logo">P.U.K</p>
+        <p class="welcome">Welcome To Pumped Up Kicks<span class="userName">@User.Claims.First(name => name.Type == "FullName").Value</span></p>
+        <form asp-action="Logout" asp-controller="Account" method="post">
+            <button class="signupbtn" type="submit">Logout</button>
+        </form>
+    </div>
+    <div class="homeDiv">
+    </div>
 }
 else
 {
+    <div id="lower-header">
+        <p class="logo">P.U.K</p>
+        <p class="welcome">Welcome To Pumped Up Kicks</p>
+    </div>
     <div class="homeDiv">
-        <h1 class="mainHeader">Welcome To Pumped Up Kicks</h1>
         <div class="signinicons">
             <a class="signupbtn" href="@Url.Action("Login", "Account")">Login</a>
             <a class="signupbtn" href="@Url.Action("Register", "Account")">Register</a>

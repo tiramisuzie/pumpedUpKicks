@@ -10,7 +10,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #40E0D0;
+    background-color: burlywood;
+    color: black;
 }
 
 header h2 {
@@ -85,7 +86,9 @@ header h2 {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    height: 100px;
+    align-items: center;
+    height: 80px;
+    background-color: black;
 }
 
 .nomargin {
@@ -94,9 +97,33 @@ header h2 {
 }
 
 .logo {
-    margin-left: 20px;
+    margin-left: 40px;
+    font-size: 30px;
+    color: burlywood;
 }
 
 .welcome {
     margin-right: 20px;
+    color: white;
+}
+
+.atags {
+    margin-right: 20px;
+}
+
+.atags a {
+    text-decoration: none;
+    color: black;
+}
+
+.atags a:hover {
+    color: white;
+}
+
+.shipping {
+    margin-left: 20px;
+}
+
+.shopcart {
+    margin-right: 10px;
 }
