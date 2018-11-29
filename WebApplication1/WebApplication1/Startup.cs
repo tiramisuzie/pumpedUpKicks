@@ -59,10 +59,12 @@ namespace WebApplication1
                 options.AddPolicy("EmployeeOnly", policy => policy.RequireUserName("EmployeeSecret"));
             });
             services.AddScoped<IAuthorizationHandler, VipEmailRequirement>();
-              // options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"));
+            // options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"));
 
+            SendGridService.ApiKey = Configuration["SENDGRID_APIKEY"];
             services.AddTransient<IProduct, ProductService>();
             services.AddTransient<IShoppingCart, ShoppingCartService>();
+            services.AddTransient<ISendGrid, SendGridService>();
             services.AddTransient<IShoppingCartItem, CartItemsService>();
         }
 
