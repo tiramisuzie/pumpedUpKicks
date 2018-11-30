@@ -94,14 +94,7 @@ namespace PumpedUpKicks.Data
                     Image = "https://sneakernews.com/wp-content/uploads/2018/08/jordan-4-raptors-AQ3816_065-store-list-1.jpg",
                     Description = "AIR JORDAN IV The Air Jordan IV debuted in 1989 and was designed by Tinker Hatfield. It features lightweight netting and plastic wings on the upper as well as visible Max Air. The original colorways of the Air Jordan IV are 'White/Cement,' 'Bred,' 'Military,' and 'Fire Red.'"
                 }
-            );
-
-            modelBuilder.Entity<ShoppingCartItem>(entity =>
-            {
-                entity.HasOne(d => d.ShoppingCart)
-                    .WithMany(p => p.ShoppingCartItems)
-                    .HasForeignKey("ShoppingCartId");
-            });    
+            );  
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }

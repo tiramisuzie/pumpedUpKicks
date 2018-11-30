@@ -63,9 +63,8 @@ namespace WebApplication1
 
             SendGridService.ApiKey = Configuration["SENDGRID_APIKEY"];
             services.AddTransient<IProduct, ProductService>();
-            services.AddTransient<IShoppingCart, ShoppingCartService>();
+            services.AddTransient<IShoppingCartItem, ShoppingCartService>();
             services.AddTransient<ISendGrid, SendGridService>();
-            services.AddTransient<IShoppingCartItem, CartItemsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

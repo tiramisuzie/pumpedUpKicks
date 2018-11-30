@@ -19,15 +19,13 @@ namespace PumpedUpKicks.Controllers
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
         private ApplicationDBContext _context;
-        private readonly IShoppingCart _shoppingCartContext;
         private readonly ISendGrid _sendGrid;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDBContext context, IShoppingCart shoppingCartContext, ISendGrid sendGrid)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDBContext context, ISendGrid sendGrid)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
-            _shoppingCartContext = shoppingCartContext;
             _sendGrid = sendGrid;
 
         }

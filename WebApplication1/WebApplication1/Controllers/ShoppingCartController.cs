@@ -17,7 +17,6 @@ namespace PumpedUpKicks.Controllers
     [Authorize]
     public class ShoppingCartController : Controller
     {
-        private readonly IShoppingCart _shoppingCart;
         private readonly IProduct _product;
         private readonly IShoppingCartItem _shoppingCartItem;
         private readonly ShopDbContext _shopcontext;
@@ -25,9 +24,8 @@ namespace PumpedUpKicks.Controllers
 
         private UserManager<ApplicationUser> _userManager;
 
-        public ShoppingCartController(UserManager<ApplicationUser> userManager, IShoppingCart context, IProduct product, IShoppingCartItem shoppingCartItem, ShopDbContext shopcontext)
+        public ShoppingCartController(UserManager<ApplicationUser> userManager, IProduct product, IShoppingCartItem shoppingCartItem, ShopDbContext shopcontext)
         {
-            _shoppingCart = context;
             _userManager = userManager;
             _product = product;
             _shoppingCartItem = shoppingCartItem;
@@ -38,17 +36,15 @@ namespace PumpedUpKicks.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var cart = await _shoppingCart.GetShoppingCart(user.Id);
             
-            var listofitems = await _shoppingCartItem.GetItemsFromCart(cart.ShoppingCartId, user.Id);
-            List<CartItemViewModel> cvmList = new List<CartItemViewModel>(); 
+            var listofitems = await _shoppingCartItem.GetItemsFromCart(user.Id);
+            List<ShoppingCartItem> cvmList = new List<ShoppingCartItem>(); 
             
             foreach(var i in listofitems)
             {
-                var cvm = new CartItemViewModel();
+                var cvm = new ShoppingCartItem();
                 cvm.Price = i.Price;
                 cvm.ProductId = i.ProductId;
-                cvm.ShoppingCartId = i.ShoppingCartId;
                 cvm.Quantity = i.Quantity;
                 cvm.Name = _shopcontext.Products.Where(x => x.ProductId == cvm.ProductId).Select(p => p.Name).FirstOrDefault().ToString();
                 cvm.ImageUrl = _shopcontext.Products.Where(x => x.ProductId == cvm.ProductId).Select(p => p.Image).FirstOrDefault().ToString();
@@ -63,17 +59,16 @@ namespace PumpedUpKicks.Controllers
         public async Task<IActionResult> AddItemToCart(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var cart = await _shoppingCart.GetShoppingCart(user.Id);
+            var cart = await _shoppingCartItem.GetItemsFromCart(user.Id);
             var prod = await _product.GetProduct(id);
 
-            var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == id);
+            var product = cart.FirstOrDefault(x => x.ProductId == id);
 
             if (product == null)
             {
                 ShoppingCartItem products = new ShoppingCartItem()
                 {
-                    ShoppingCartId = cart.ShoppingCartId,
-                    userId = user.Id,
+                    UserId = user.Id,
                     Quantity = 1,
                     ProductId = id,
                     Price = prod.Price
@@ -97,8 +92,8 @@ namespace PumpedUpKicks.Controllers
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var cart = await _shoppingCart.GetShoppingCart(user.Id);
-            var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == id);
+            var cart = await _shoppingCartItem.GetItemsFromCart(user.Id);
+            var product = cart.FirstOrDefault(x => x.ProductId == id);
             await _shoppingCartItem.DeleteCartItem(product);
             return View("Delete", "ShoppingCart");
         }
@@ -111,8 +106,8 @@ namespace PumpedUpKicks.Controllers
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var cart = await _shoppingCart.GetShoppingCart(user.Id);
-            var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == id);
+            var cart = await _shoppingCartItem.GetItemsFromCart(user.Id);
+            var product = cart.FirstOrDefault(x => x.ProductId == id);
             return View(product);
         }
 
@@ -125,8 +120,8 @@ namespace PumpedUpKicks.Controllers
                 return NotFound();
             }
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var cart = await _shoppingCart.GetShoppingCart(user.Id);
-            var product = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == ProductId && x.userId == user.Id);
+            var cart = await _shoppingCartItem.GetItemsFromCart(user.Id);
+            var product = cart.FirstOrDefault(x => x.ProductId == ProductId);
 
             product.Quantity = Quantity;
             await _shoppingCartItem.UpdateCartItem(product);
