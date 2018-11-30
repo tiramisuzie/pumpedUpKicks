@@ -56,7 +56,7 @@ namespace WebApplication1
             services.AddAuthorization(options => {
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRoles.Admin));
                 options.AddPolicy("EmailPolicy", policy => policy.Requirements.Add(new RequireEmailRequirement()));
-                options.AddPolicy("EmployeeOnly", policy => policy.RequireUserName("EmployeeSecret"));
+                options.AddPolicy("DiscountPolicy", policy => policy.RequireAssertion(x => x.User.Identity.Name.Contains("s")));
             });
             services.AddScoped<IAuthorizationHandler, VipEmailRequirement>();
             // options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"));

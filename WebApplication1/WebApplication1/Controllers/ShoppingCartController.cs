@@ -38,9 +38,8 @@ namespace PumpedUpKicks.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             
             var listofitems = await _shoppingCartItem.GetItemsFromCart(user.Id);
-            List<ShoppingCartItem> cvmList = new List<ShoppingCartItem>(); 
-            
-            foreach(var i in listofitems)
+            List<ShoppingCartItem> cvmList = new List<ShoppingCartItem>();
+            foreach (var i in listofitems)
             {
                 var cvm = new ShoppingCartItem();
                 cvm.Price = i.Price;
@@ -56,7 +55,7 @@ namespace PumpedUpKicks.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddItemToCart(int id)
+        public async Task<IActionResult> AddItemToCart(int id, bool discount)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var cart = await _shoppingCartItem.GetItemsFromCart(user.Id);
@@ -71,7 +70,7 @@ namespace PumpedUpKicks.Controllers
                     UserId = user.Id,
                     Quantity = 1,
                     ProductId = id,
-                    Price = prod.Price
+                    Price = discount ? Convert.ToInt32(prod.Price * .20) : prod.Price
                 };
                     await _shoppingCartItem.CreateCartItem(products);
             }
