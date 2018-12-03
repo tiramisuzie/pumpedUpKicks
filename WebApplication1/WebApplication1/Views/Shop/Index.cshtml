@@ -4,7 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<table>
+<div id="lower-header">
+    <p class="logo">P.U.K</p>
+    <form asp-action="Logout" asp-controller="Account" method="post">
+        <button class="signupbtn space" type="submit">Logout</button>
+    </form>
+</div>
+<table class="shopTable">
     <thead>
         <tr>
             <th>
@@ -31,7 +37,7 @@
                 <td>
                     <img id="shopImage" src="@Html.DisplayFor(modelItem => item.Image)" />
                 </td>
-                <td>
+                <td class="tableName">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>

@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PumpedUpKicks.Data;
 
-namespace PumpedUpKicks.Migrations
+namespace PumpedUpKicks.Migrations.ShopDb
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20181129003630_initial")]
+    [Migration("20181203221256_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
