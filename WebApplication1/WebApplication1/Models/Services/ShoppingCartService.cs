@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PumpedUpKicks.Data;
 using PumpedUpKicks.Models.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PumpedUpKicks.Models.Services
@@ -15,10 +13,16 @@ namespace PumpedUpKicks.Models.Services
         {
             _context = context;
         }
-        
-        public async Task<List<ShoppingCartItem>> GetShoppingCart(string userId)
+
+        public async Task CreateShoppingCart(string userId)
         {
-            return await _context.ShoppingCartItem.Where( x => x.UserId.Equals(userId)).ToListAsync();
+            _context.ShoppingCarts.Add(new ShoppingCart { UserId = userId });
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<ShoppingCart> GetShoppingCart(string userId)
+            {
+            return await _context.ShoppingCarts.Include(x => x.ShoppingCartItems).FirstOrDefaultAsync(x => x.UserId==userId);
         }
     }
 }

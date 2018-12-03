@@ -4,18 +4,19 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(product => product.Name)
-        </dt>
-        <dd>
+    <div>
+        <h2>
+            @Html.DisplayFor(product => product.Name)
+        </h2>
+        <img src="@Html.DisplayFor(product => product.Image)" />
+        <p>
             @Html.DisplayFor(product => product.Description)
-        </dd>
-    </dl>
-    <a asp-action="AddItemToCart" asp-controller="ShoppingCartController" asp-route-id="@Model.ProductId">Add to cart</a>
+        </p>
+    </div>
+    <form asp-action="AddItemToCart" asp-controller="ShoppingCart" method="post">
+        <input type="hidden" name="id" value="@Model.ProductId" />
+        <input type="submit" class="btn btn-default" value="add to cart" /> |
+    </form>
     <a asp-action="Index">Back to List</a>
 </div>

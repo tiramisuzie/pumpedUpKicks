@@ -63,6 +63,7 @@ namespace WebApplication1
 
             services.AddTransient<IProduct, ProductService>();
             services.AddTransient<IShoppingCart, ShoppingCartService>();
+            services.AddTransient<IShoppingCartItem, CartItemsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
