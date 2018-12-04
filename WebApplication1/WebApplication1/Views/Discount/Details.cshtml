@@ -1,0 +1,23 @@
+﻿@model PumpedUpKicks.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <div>
+        <h2>
+            @Html.DisplayFor(product => product.Name)
+        </h2>
+        <img src="@Html.DisplayFor(product => product.Image)" />
+        <p>
+            @Html.DisplayFor(product => product.Description)
+        </p>
+    </div>
+    <form asp-action="AddItemToCart" asp-controller="ShoppingCart" method="post">
+        <input type="hidden" name="id" value="@Model.ProductId" />
+        <input type="hidden" name="discount" value="true" />
+        <input type="submit" class="btn btn-default" value="add to cart" /> |
+    </form>
+    <a asp-action="Index">Back to List</a>
+</div>

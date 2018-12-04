@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PumpedUpKicks.Models.Services
 {
-    public class ShoppingCartService : IShoppingCart
+    public class ShoppingCartService : IShoppingCartItem
     {
         private ShopDbContext _context;
 
@@ -15,10 +15,28 @@ namespace PumpedUpKicks.Models.Services
         {
             _context = context;
         }
-        
-        public async Task<ShoppingCart> GetShoppingCart(string userId)
+
+        public async Task CreateCartItem(ShoppingCartItem item)
         {
-            return await _context.ShoppingCarts.Include(x => x.ShoppingCartItems).FirstOrDefaultAsync(x => x.UserId==userId);
+            _context.ShoppingCartItem.Add(item);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteCartItem(ShoppingCartItem item)
+        {
+            _context.ShoppingCartItem.Remove(item);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<ShoppingCartItem>> GetItemsFromCart(string userId)
+        {
+            return await _context.ShoppingCartItem.Where(x => x.UserId == userId).ToListAsync();
+        }
+
+        public async Task UpdateCartItem(ShoppingCartItem item)
+        {
+            _context.ShoppingCartItem.Update(item);
+            await _context.SaveChangesAsync();
         }
     }
 }
