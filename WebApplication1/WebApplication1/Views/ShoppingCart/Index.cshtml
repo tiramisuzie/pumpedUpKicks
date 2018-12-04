@@ -6,21 +6,13 @@
 
 @if(Model.Count() > 0)
 {
-    <h3>Cart Page</h3>
+    <h1 class="cart-view">View Cart</h1>
     <table cellpadding="2" cellspacing="2" border="1">
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-            </tr>
-        </thead>
         <tbody>
             @foreach (var item in Model)
             {
             <tr>
-                <td><img src="@item.ImageUrl" /></td>
+                <td><img src="@item.ImageUrl" width="312" height="212" /></td>
                 <td>@item.Name</td>
                 <td>@item.Quantity</td>
                 <td>@item.Price</td>
@@ -30,11 +22,16 @@
             }
         </tbody>
     </table>
-    <a href="../../shop/index">add item</a>
+    <div class="addItem">
+        <a href="../../shop/index">add item</a> | 
+        <a asp-action="Index" asp-controller="Checkout"> checkout</a>
+    </div>
 }
 else
 {
-    <p>No Shopping Cart Item</p>
-    <a href="../../shop/index">view shop</a>
-    <br>
+    <div class="empty-cart">
+        <p>No Shopping Cart Item</p>
+        <a href="../../shop/index">view shop</a>
+        <br>
+    </div>
 }

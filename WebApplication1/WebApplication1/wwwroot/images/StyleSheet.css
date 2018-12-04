@@ -14,15 +14,11 @@ header {
     color: black;
 }
 
-header h2 {
-    color: white;
-    font-size: 60px;
-    text-shadow:
-        -2px -2px 0 #000,
-        2px 2px 0 #000,
-        -2px -2px 0 #000,
-        2px 2px 0 #000
-}
+    header h2 {
+        color: white;
+        font-size: 60px;
+        text-shadow: -2px -2px 0 #000, 2px 2px 0 #000, -2px -2px 0 #000, 2px 2px 0 #000
+    }
 
 .signinicons {
     display: flex;
@@ -45,10 +41,10 @@ header h2 {
     border: 2px solid double;
 }
 
-.signupbtn:hover {
-    background-color: burlywood;
-    color: white;
-}
+    .signupbtn:hover {
+        background-color: burlywood;
+        color: white;
+    }
 
 .mainLogo {
     text-decoration: none;
@@ -115,14 +111,14 @@ header h2 {
     margin-right: 20px;
 }
 
-.atags a {
-    text-decoration: none;
-    color: black;
-}
+    .atags a {
+        text-decoration: none;
+        color: black;
+    }
 
-.atags a:hover {
-    color: white;
-}
+        .atags a:hover {
+            color: white;
+        }
 
 .shipping {
     margin-left: 20px;
@@ -136,9 +132,9 @@ header h2 {
     width: 100%;
 }
 
-.underImage img {
-    width: 100%;
-}
+    .underImage img {
+        width: 100%;
+    }
 
 .space {
     margin-right: 20px;
@@ -146,7 +142,7 @@ header h2 {
 
 .btns {
     text-decoration: none;
-    color:  black;
+    color: black;
 }
 
 .override {
@@ -208,10 +204,10 @@ input[type=text], input[type=password] {
     background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
-}
+    input[type=text]:focus, input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
 
 /* Overwrite default styles of hr */
 hr {
@@ -231,9 +227,9 @@ hr {
     opacity: 0.9;
 }
 
-.registerbtn:hover {
-    opacity: 1;
-}
+    .registerbtn:hover {
+        opacity: 1;
+    }
 
 /* Add a blue text color to links */
 a {
@@ -254,10 +250,10 @@ a {
     background-color: burlywood;
 }
 
-.details img {
-    border-radius: 5px;
-    border: 1px solid white;
-}
+    .details img {
+        border-radius: 5px;
+        border: 1px solid white;
+    }
 
 .mbtns {
     background-color: black;
@@ -270,7 +266,7 @@ a {
     font-size: 14px;
 }
 
-.cart-btn{
+.cart-btn {
     font-size: 15px;
 }
 
@@ -297,15 +293,15 @@ a {
     text-align: center;
 }
 
-.empty-cart p {
-    font-size: 30px;
-    margin-top: 50px;
-}
+    .empty-cart p {
+        font-size: 30px;
+        margin-top: 50px;
+    }
 
-.empty-cart a {
-    text-decoration: none;
-    color: red;
-}
+    .empty-cart a {
+        text-decoration: none;
+        color: red;
+    }
 
 tbody a {
     text-decoration: none;
@@ -318,49 +314,44 @@ tbody a {
     padding-top: 20px;
 }
 
-.addItem a {
-    text-decoration: none;
-    color: red;
-}
+    .addItem a {
+        text-decoration: none;
+        color: red;
+    }
 
 .cart-view {
     text-align: center;
 }
 
-.edit-product { 
+.edit-product {
     text-align: center;
     border: 2px solid burlywood;
     width: 50%;
     margin: 0 auto;
     margin-top: 50px;
     padding: 30px;
-    border-radius: 5px; 
+    border-radius: 5px;
     background-color: black;
     color: burlywood;
 }
 
-.edit-product a {
-    text-decoration: none;
-    color: red;
-}
+    .edit-product a {
+        text-decoration: none;
+        color: red;
+    }
 
-.edit-product input {
-    width: 90%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
-    text-align: center;
-}
+    .edit-product input {
+        width: 90%;
+        padding: 15px;
+        margin: 5px 0 22px 0;
+        display: inline-block;
+        border: none;
+        background: #f1f1f1;
+        text-align: center;
+    }
 
 input.color {
     background-color: burlywood;
     font-size: 14px;
     color: white;
-}
-
-.sizeOfShoes {
-    width: 302px;
-    height: 212px;
 }
