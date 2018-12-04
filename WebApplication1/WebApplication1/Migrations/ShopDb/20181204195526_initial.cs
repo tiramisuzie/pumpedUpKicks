@@ -24,45 +24,21 @@ namespace PumpedUpKicks.Migrations.ShopDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShoppingCarts",
-                columns: table => new
-                {
-                    ShoppingCartId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShoppingCarts", x => x.ShoppingCartId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ShoppingCartItem",
                 columns: table => new
                 {
                     ShoppingCartItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    userId = table.Column<string>(nullable: true),
-                    ShoppingCartId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
                     Price = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ShoppingCartItem", x => x.ShoppingCartItemId);
-                    table.ForeignKey(
-                        name: "FK_ShoppingCartItem_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ShoppingCartItem_ShoppingCarts_ShoppingCartId",
-                        column: x => x.ShoppingCartId,
-                        principalTable: "ShoppingCarts",
-                        principalColumn: "ShoppingCartId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -81,28 +57,15 @@ namespace PumpedUpKicks.Migrations.ShopDb
                     { 9, "The Air Jordan III (3) is Michael Jordan's third signature basketball shoe. It released in 1988 in four colorways of white, black, red, and blue. It was the first Air Jordan to feature visible Air, elephant print, and the Jumpman logo.", "https://sneakernews.com/wp-content/uploads/2018/05/where-to-buy-air-jordan-3-katrina.jpg", "Jordan 3's", 300 },
                     { 10, "AIR JORDAN IV The Air Jordan IV debuted in 1989 and was designed by Tinker Hatfield. It features lightweight netting and plastic wings on the upper as well as visible Max Air. The original colorways of the Air Jordan IV are 'White/Cement,' 'Bred,' 'Military,' and 'Fire Red.'", "https://sneakernews.com/wp-content/uploads/2018/08/jordan-4-raptors-AQ3816_065-store-list-1.jpg", "Jordan 4's", 350 }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCartItem_ProductId",
-                table: "ShoppingCartItem",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCartItem_ShoppingCartId",
-                table: "ShoppingCartItem",
-                column: "ShoppingCartId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ShoppingCartItem");
-
-            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "ShoppingCarts");
+                name: "ShoppingCartItem");
         }
     }
 }

@@ -9,7 +9,7 @@ using PumpedUpKicks.Data;
 namespace PumpedUpKicks.Migrations.ShopDb
 {
     [DbContext(typeof(ShopDbContext))]
-    [Migration("20181203221256_initial")]
+    [Migration("20181204195526_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,24 +52,15 @@ namespace PumpedUpKicks.Migrations.ShopDb
                     );
                 });
 
-            modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCart", b =>
-                {
-                    b.Property<int>("ShoppingCartId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("ShoppingCartId");
-
-                    b.ToTable("ShoppingCarts");
-                });
-
             modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCartItem", b =>
                 {
                     b.Property<int>("ShoppingCartItemId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Name");
 
                     b.Property<int>("Price");
 
@@ -77,30 +68,11 @@ namespace PumpedUpKicks.Migrations.ShopDb
 
                     b.Property<int>("Quantity");
 
-                    b.Property<int>("ShoppingCartId");
-
-                    b.Property<string>("userId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("ShoppingCartItemId");
 
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("ShoppingCartId");
-
                     b.ToTable("ShoppingCartItem");
-                });
-
-            modelBuilder.Entity("PumpedUpKicks.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("PumpedUpKicks.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("PumpedUpKicks.Models.ShoppingCart", "ShoppingCart")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("ShoppingCartId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
