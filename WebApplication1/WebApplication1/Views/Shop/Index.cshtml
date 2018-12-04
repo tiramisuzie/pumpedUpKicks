@@ -6,9 +6,6 @@
 
 <div id="lower-header">
     <p class="logo">P.U.K</p>
-    <form asp-action="Logout" asp-controller="Account" method="post">
-        <button class="signupbtn space" type="submit">Logout</button>
-    </form>
 </div>
 <table class="shopTable">
     <thead>
@@ -47,7 +44,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.ProductId" class="deets">Details</a>
                 </td>
             </tr>
         }

@@ -4,41 +4,42 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Register</h2>
 @Html.ValidationSummary(true)
+
 <form method="post">
+    <div class="container">
+        <h1>Register</h1>
+        <p>Please fill out for to register for account</p>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+        <br />
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
 
-    <label asp-for="FirstName"></label>
-    <input asp-for="FirstName" />
-    <span asp-validation-for="FirstName"></span>
-    <br />
-    <label asp-for="LastName"></label>
-    <input asp-for="LastName" />
-    <span asp-validation-for="LastName"></span>
+        <br />
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
 
-    <br />
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <span asp-validation-for="Email"></span>
+        <br />
+        <label asp-for="Birthday"></label>
+        <input asp-for="Birthday" />
+        <br />
+        <span asp-validation-for="Birthday"></span>
 
-    <br />
-    <label asp-for="Birthday"></label>
-    <input asp-for="Birthday" />
-    <span asp-validation-for="Birthday"></span>
+        <br />
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
 
+        <br />
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" />
+        <span asp-validation-for="ConfirmPassword"></span>
 
-    <br />
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password"></span>
-
-
-    <br />
-    <label asp-for="ConfirmPassword"></label>
-    <input asp-for="ConfirmPassword" />
-    <span asp-validation-for="ConfirmPassword"></span>
-
-    <br />
-    <button type="submit">Register!</button>
-
+        <br />
+        <button type="submit" class="registerbtn">Register</button>
+    </div>
 </form>
