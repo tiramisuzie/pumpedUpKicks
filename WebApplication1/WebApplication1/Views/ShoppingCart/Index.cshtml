@@ -1,4 +1,4 @@
-﻿@model List<PumpedUpKicks.Models.ViewModels.CartItemViewModel>
+﻿@model List<PumpedUpKicks.Models.ShoppingCartItem>
 
 @{ 
     ViewData["Title"] = "Index";
@@ -13,7 +13,7 @@
             @foreach (var item in Model)
             {
             <tr>
-                <td><img src="@item.ImageUrl" /></td>
+                <td><img src="@item.ImageUrl" width="312" height="212" /></td>
                 <td>@item.Name</td>
                 <td>@item.Quantity</td>
                 <td>@item.Price</td>
@@ -24,7 +24,8 @@
         </tbody>
     </table>
     <div class="addItem">
-        <a href="../../shop/index">add item</a>
+        <a href="../../shop/index">add item</a> | 
+        <a asp-action="Index" asp-controller="Checkout"> checkout</a>
     </div>
 }
 else

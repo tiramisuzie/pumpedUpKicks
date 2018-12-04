@@ -359,3 +359,8 @@ input.color {
     font-size: 14px;
     color: white;
 }
+
+.sizeOfShoes {
+    width: 302px;
+    height: 212px;
+}
