@@ -4,19 +4,21 @@
     ViewData["Title"] = "Details";
 }
 
-<div>
+<div class="details">
     <div>
         <h2>
             @Html.DisplayFor(product => product.Name)
         </h2>
-        <img src="@Html.DisplayFor(product => product.Image)" />
-        <p>
-            @Html.DisplayFor(product => product.Description)
-        </p>
+        <img src="@Html.DisplayFor(product => product.Image)" class="deets-img" />
+        <div class="par">
+            <p>
+                @Html.DisplayFor(product => product.Description)
+            </p>
+        </div>
     </div>
     <form asp-action="AddItemToCart" asp-controller="ShoppingCart" method="post">
         <input type="hidden" name="id" value="@Model.ProductId" />
-        <input type="submit" class="btn btn-default" value="add to cart" /> |
+        <input type="submit" class="cart-btn mbtns" value="add to cart" /> 
+        <a asp-action="Index" class="btns mbtns">back to shop</a>
     </form>
-    <a asp-action="Index">Back to List</a>
 </div>

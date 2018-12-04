@@ -5,7 +5,10 @@
     Layout = "_Layout";
 }
 
-<table>
+<div id="lower-header">
+    <p class="logo">P.U.K</p>
+</div>
+<table class="shopTable">
     <thead>
         <tr>
             <th>
@@ -32,7 +35,7 @@
                 <td>
                     <img id="shopImage" src="@Html.DisplayFor(modelItem => item.Image)" />
                 </td>
-                <td>
+                <td class="tableName">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
@@ -42,7 +45,7 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.ProductId" class="deets">Details</a>
                 </td>
             </tr>
         }
