@@ -1,0 +1,49 @@
+﻿@using PumpedUpKicks.Models;
+@model List<ShoppingCartItem>
+
+@{
+    ViewData["Title"] = "Index";
+    int price = 0;
+    Layout = "_Layout";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Item Name
+            </th>
+            <th>
+                Item Quantity
+            </th>
+            <th>
+                Total Cost
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @((item.Price * item.Quantity).ToString("C2"))
+                </td>
+            </tr>
+            price += item.Price * item.Quantity;
+        }
+        
+    </tbody>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Total: </th>
+            <th>@price.ToString("C2")</th>
+        </tr>
+    </thead>
+</table>

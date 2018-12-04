@@ -68,6 +68,7 @@ namespace PumpedUpKicks.Controllers
                 ShoppingCartItem products = new ShoppingCartItem()
                 {
                     UserId = user.Id,
+                    Name = prod.Name,
                     Quantity = 1,
                     ProductId = id,
                     Price = discount ? Convert.ToInt32(prod.Price * .20) : prod.Price
