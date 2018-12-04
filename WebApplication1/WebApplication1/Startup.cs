@@ -56,14 +56,15 @@ namespace WebApplication1
             services.AddAuthorization(options => {
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole(UserRoles.Admin));
                 options.AddPolicy("EmailPolicy", policy => policy.Requirements.Add(new RequireEmailRequirement()));
-                options.AddPolicy("EmployeeOnly", policy => policy.RequireUserName("EmployeeSecret"));
+                options.AddPolicy("DiscountPolicy", policy => policy.RequireAssertion(x => x.User.Identity.Name != null ? x.User.Identity.Name.Contains("s") : false));
             });
             services.AddScoped<IAuthorizationHandler, VipEmailRequirement>();
-              // options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"));
+            // options.UseSqlServer(Configuration.GetConnectionString("ProductionIdentityConnection"));
 
+            SendGridService.ApiKey = Configuration["SENDGRID_APIKEY"];
             services.AddTransient<IProduct, ProductService>();
-            services.AddTransient<IShoppingCart, ShoppingCartService>();
-            services.AddTransient<IShoppingCartItem, CartItemsService>();
+            services.AddTransient<IShoppingCartItem, ShoppingCartService>();
+            services.AddTransient<ISendGrid, SendGridService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

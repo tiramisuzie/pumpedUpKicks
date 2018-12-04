@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PumpedUpKicks.Data;
 using PumpedUpKicks.Models.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PumpedUpKicks.Models.Services
 {
-    public class ShoppingCartService : IShoppingCart
+    public class ShoppingCartService : IShoppingCartItem
     {
         private ShopDbContext _context;
 
@@ -14,15 +16,27 @@ namespace PumpedUpKicks.Models.Services
             _context = context;
         }
 
-        public async Task CreateShoppingCart(string userId)
+        public async Task CreateCartItem(ShoppingCartItem item)
         {
-            _context.ShoppingCarts.Add(new ShoppingCart { UserId = userId });
+            _context.ShoppingCartItem.Add(item);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ShoppingCart> GetShoppingCart(string userId)
-            {
-            return await _context.ShoppingCarts.Include(x => x.ShoppingCartItems).FirstOrDefaultAsync(x => x.UserId==userId);
+        public async Task DeleteCartItem(ShoppingCartItem item)
+        {
+            _context.ShoppingCartItem.Remove(item);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<ShoppingCartItem>> GetItemsFromCart(string userId)
+        {
+            return await _context.ShoppingCartItem.Where(x => x.UserId == userId).ToListAsync();
+        }
+
+        public async Task UpdateCartItem(ShoppingCartItem item)
+        {
+            _context.ShoppingCartItem.Update(item);
+            await _context.SaveChangesAsync();
         }
     }
 }
