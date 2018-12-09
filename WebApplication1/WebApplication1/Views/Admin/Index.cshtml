@@ -1,7 +1,63 @@
-﻿@{
-    ViewData["Title"] = "View";
+﻿@model IEnumerable<PumpedUpKicks.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
 }
+<h1>Admin Dashboard</h1>
+<div id="lower-header">
+    <p class="logo">P.U.K</p>
+</div>
+<form asp-controller="Admin" asp-action="UpdateQty" method="post">
+    <table class="shopTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryQty)
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
 
-<h2>Admin menu</h2>
-
-This is the admin panel
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img id="shopImage" src="@Html.DisplayFor(modelItem => item.Image)" />
+                    </td>
+                    <td class="tableName">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <input value="@item.ProductId" type="hidden" name="Id" alt="Qty" placeholder="Qty" />
+                        <input value="@item.InventoryQty" name="Qty" alt="Qty" placeholder="Qty" />
+                    </td>
+                    <td>
+                        <button type="submit">Update</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
