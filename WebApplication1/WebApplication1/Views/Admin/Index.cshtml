@@ -8,7 +8,7 @@
 <div id="lower-header">
     <p class="logo">P.U.K</p>
 </div>
-<form asp-controller="Admin" asp-action="UpdateQty" method="post">
+<form asp-controller="Admin" asp-action="FormAction" method="post">
     <table class="shopTable">
         <thead>
             <tr>
@@ -54,7 +54,8 @@
                         <input value="@item.InventoryQty" name="Qty" alt="Qty" placeholder="Qty" />
                     </td>
                     <td>
-                        <button type="submit">Update</button>
+                        <input type="submit" name="update" value="Update" />
+                        <input type="submit" name="delete" value="Delete" /FormAction>
                     </td>
                 </tr>
             }

@@ -24,12 +24,34 @@ namespace PumpedUpKicks.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateQty(int id, int qty)
+        public async Task<IActionResult> FormAction(int id, int qty, string update, string delete)
+        {
+            if (!string.IsNullOrEmpty(update))
+            {
+                await UpdateQty(id, qty);
+            }
+
+            if (!string.IsNullOrEmpty(delete))
+            {
+                await DeleteProduct(id);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        private async Task<bool> UpdateQty(int id, int qty)
         {
             var p = await _shops.GetProduct(id);
             p.InventoryQty = qty;
             await _shops.UpdateProduct(p);
-            return RedirectToAction("Index");
+            return true;
+        }
+
+        private async Task<bool> DeleteProduct(int id)
+        {
+            var p = await _shops.GetProduct(id);
+            await _shops.DeleteProduct(p);
+            return true;
         }
     }
 }

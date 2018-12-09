@@ -11,5 +11,7 @@ namespace PumpedUpKicks.Interfaces
         Task<Product> GetProduct(int id);
 
         Task UpdateProduct(Product p);
+
+        Task DeleteProduct(Product p);
     }
 }
