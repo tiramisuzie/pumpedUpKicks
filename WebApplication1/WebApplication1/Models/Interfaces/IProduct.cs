@@ -13,5 +13,7 @@ namespace PumpedUpKicks.Interfaces
         Task UpdateProduct(Product p);
 
         Task DeleteProduct(Product p);
+
+        Task CreateProduct(Product p);
     }
 }

@@ -38,5 +38,11 @@ namespace PumpedUpKicks.Models.Services
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
         }
+
+        public async Task CreateProduct(Product product)
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+        }
     }
 }

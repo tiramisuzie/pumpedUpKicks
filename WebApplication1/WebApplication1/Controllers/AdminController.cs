@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using PumpedUpKicks.Interfaces;
+using PumpedUpKicks.Models;
 
 namespace PumpedUpKicks.Controllers
 {
@@ -36,6 +37,18 @@ namespace PumpedUpKicks.Controllers
                 await DeleteProduct(id);
             }
 
+            return RedirectToAction("Index");
+        }
+        
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Product p)
+        {
+            await _shops.CreateProduct(p);
             return RedirectToAction("Index");
         }
 
