@@ -1,7 +1,70 @@
-﻿@{
-    ViewData["Title"] = "View";
+﻿@model IEnumerable<PumpedUpKicks.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
 }
+<h1>Admin Dashboard</h1>
+<div id="lower-header">
+    <p class="logo">P.U.K</p>
+</div>
+<div>
+    <a asp-action="Create">Create</a>
+</div>
+<table class="shopTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventoryQty)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
 
-<h2>Admin menu</h2>
+            <form asp-controller="Admin" asp-action="FormAction" method="post">
+                <tr>
+                    <td>
+                        <img id="shopImage" src="@Html.DisplayFor(modelItem => item.Image)" />
+                    </td>
+                    <td class="tableName">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <input value="@item.ProductId" type="hidden" name="id" alt="Id" placeholder="Id" />
+                        <input value="@item.InventoryQty" name="qty" alt="Qty" placeholder="Qty" />
+                    </td>
+                    <td>
+                        <input type="submit" name="update" value="Update" />
+                        <input type="submit" name="delete" value="Delete" />
+                    </td>
+                </tr>
 
-This is the admin panel
+            </form>
+        }
+
+        </tbody>
+
+</table>

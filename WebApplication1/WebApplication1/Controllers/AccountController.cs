@@ -70,9 +70,10 @@ namespace PumpedUpKicks.Controllers
                         birthdayClaim,
                         emailClaim,
                     };
-
-                    if (rvm.Email == "ercain3@gmail.com")
+                    bool IsAdmin = false;
+                    if (rvm.Email == "ercain3@gmail.com" || rvm.Email == "su@cat3.com")
                     {
+                        IsAdmin = true;
                         await _userManager.AddToRoleAsync(user, UserRoles.Admin.ToString());
                     }
 
@@ -82,6 +83,12 @@ namespace PumpedUpKicks.Controllers
                     await _userManager.AddClaimAsync(user, birthdayClaim);
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _sendGrid.SendRegisterEmail(user.Email, string.Join(" ", user.FirstName, user.LastName));
+
+                    if (IsAdmin)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -111,6 +118,14 @@ namespace PumpedUpKicks.Controllers
 
                 if (result.Succeeded)
                 {
+
+                    IList<ApplicationUser> users = await _userManager.GetUsersInRoleAsync(UserRoles.Admin.ToString());
+                    
+                    if (users.Where( u => u.UserName == lvm.Email).ToList().Count > 0)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else

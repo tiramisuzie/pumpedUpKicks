@@ -26,5 +26,23 @@ namespace PumpedUpKicks.Models.Services
         {
             return await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
         }
+
+        public async Task UpdateProduct(Product product)
+        {
+            _context.Products.Update(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteProduct(Product product)
+        {
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CreateProduct(Product product)
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+        }
     }
 }

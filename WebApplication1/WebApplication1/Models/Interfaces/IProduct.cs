@@ -9,5 +9,11 @@ namespace PumpedUpKicks.Interfaces
         Task<List<Product>> GetProducts();
         
         Task<Product> GetProduct(int id);
+
+        Task UpdateProduct(Product p);
+
+        Task DeleteProduct(Product p);
+
+        Task CreateProduct(Product p);
     }
 }
